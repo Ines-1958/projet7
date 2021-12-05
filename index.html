@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a6f9fb69fc.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+    <title>Les petits plats</title>
+</head>
+<body>
+    <header class="heading">
+        <div class="heading__logo">
+            <img src="https://user.oc-static.com/upload/2020/08/14/15973932905401_logo%20%281%29.png" alt="" class="heading__logo--img"/> 
+        </div>
+        <div class="heading__recherche">
+            <form class="heading__recherche--form">
+                <div class="heading__recherche--form--div"><input type="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" name="" id="" />
+                    <button type="submit" class="rechercher">
+                        <span class=""><i class="fas fa-search"></i></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </header>
+    <main>
+        <section class="select">
+            <label>Rechercher un ingrédient, appareil, ustensiles ou une recette</label>
+            <div class="select-filter">
+                <div class="select-filter__item ingredients">
+                    <select>
+                        <option>Ingredients</option>
+                    </select>
+                </div>
+                <div class="select-filter__item appareil">
+                    <select>
+                        <option>Appareil</option>
+                    </select>
+                </div>
+                <div class="select-filter__item ustensiles">
+                    <select>
+                        <option>Ustensiles</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+        <section class="recettes"></section>
+        <section class="recettes-old"> 
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Limonade de Coco</h2>
+                        <p>Lait de coco: 400ml</p>
+                        <p>Jus de citron: 2</p>
+                        <p>Crème de coco: 4 cuillères</p>
+                        <p>Sucre: 20g</p>
+                        <p>Glaçons: 2</p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 10 min</h2>
+                        <p class="recette__description--p">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Poisson Cru à la tahitienne</h2>
+                        <p>Thon Rouge (ou blanc): 200g </p>
+                        <p>Concombre: 1</p>
+                        <p>Tomate: 2</p>
+                        <p>Carotte: 1</p>
+                        <p>Citron Vert: 5</p>
+                        <p>5 Lait de coco: 100ml </p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 60 min</h2>
+                        <p>Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert (mieux vaut prendre un plat large et peu profond). Laisser reposer au réfrigérateur au moins 2 heures. ...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Poulet coco réunionnais</h2>
+                        <p>Poulet: 1 </p>
+                        <p>Lait de coco: 400ml</p>
+                        <p>Coulis de tomate: 25cl</p>
+                        <p>Oignon: 1</p>
+                        <p>Poivron rouge: 1</p>
+                        <p>Huile d'olive</p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 80 min</h2>
+                        <p>Découper le poulet en morceaux, les faire dorer dans une cocotte avec de l'huile d'olive. Salez et poivrez. Une fois doré, laisser cuire en ajoutant de l'eau. Au bout de 30 minutes, ajouter le coulis de tomate, ...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Salade de riz</h2>
+                        <p>Lait de coco: 400ml</p>
+                        <p>Jus de citron: 2</p>
+                        <p>Crème de coco: 4 cuillères</p>
+                        <p>Sucre: 20g</p>
+                        <p>Glaçons: 2</p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 50 min</h2>
+                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Tarte au thon</h2>
+                        <p>Lait de coco: 400ml</p>
+                        <p>Jus de citron: 2</p>
+                        <p>Crème de coco: 4 cuillères</p>
+                        <p>Sucre: 20g</p>
+                        <p>Glaçons: 2</p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 45 min</h2>
+                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recettes-bloc">
+                <div class="recettes-bloc__heading"></div>
+                <div class="recette">
+                    <div class="recette__ingredients">
+                        <h2>Tarte aux pommes</h2>
+                        <p>Lait de coco: 400ml</p>
+                        <p>Jus de citron: 2</p>
+                        <p>Crème de coco: 4 cuillères</p>
+                        <p>Sucre: 20g</p>
+                        <p>Glaçons: 2</p>
+                    </div>
+                    <div class="recette__description">
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> 50 min</h2>
+                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+body a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.heading {
+    &__logo {
+        &--img {
+            width: 170px;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    &__recherche {
+       &--form {
+           &--div {
+               margin: 20px;
+            input {
+                padding: 15px;
+                border: none;
+                width: 100%;
+                background-color: #E7E7E7;
+                border-radius: 5px;
+               }
+           }
+           
+       } 
+    }
+}
+
+.rechercher {
+    top: -33%;
+    transform: translateY(-50%);
+    //position: absolute;
+    background: none;
+    border: none;
+
+    position: relative;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    left: 75rem;
+    cursor: pointer;
+}
+
+.select {
+    margin: 20px;
+    .select-filter {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        &__item {
+            margin-right: 20px;
+            .ingredients {
+                background-color: #3282F7;
+            } 
+            .appareil {
+                background-color: #68D9A4;
+            }
+            .ustensiles {
+                background-color: #ED6454;
+            }
+        }
+    }
+}
+
+
+.recettes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.recettes-bloc {
+    display: flex;
+    flex-direction: column;
+    width: 31.33%;
+    border: 2px solid green;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    &__heading {
+       background-color: #C7BEBE; 
+       padding: 10px;
+       width: 100%;
+       padding: 70px;
+    }
+}
+.recette {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    width: 100%;
+    background-color: #E7E7E7;
+    p {
+        font-size: 13px;
+    }
+
+    &__ingredients,
+        h2 {
+            font-size: 16px;
+        }
+        &--p {
+            &--span {
+                font-weight: bold;
+            }
+        }
+    &__description {
+        width: 49%;
+    }
+
+    &__description {
+        &--h2 {
+            margin-left: 93px;
+        }
+        &--p {
+            font-family: 'Lato', sans-serif;
+            font-family: 'Roboto', sans-serif;
+        }
+    }
+}
+
+.recettes-old {
+    display: none; 
+}
+
