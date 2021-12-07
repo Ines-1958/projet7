@@ -36,33 +36,16 @@ async function mesRecettes () {
 }
 mesRecettes();
 
-// function buildDescription (ingredients) {
-//     return ingredients.map(ingredient => 
-//     `<p class="recette__ingredients--p"><span class="recette__ingredients--p--span">${ingredient.ingredient}</span>: <span>${ingredient.quantity}</sapn></p>`).join('');
-// }
-
-// function buildDescription (ingredients) {
-//     return ingredients.map(ingredient => {
-//         if (ingredient.unit == undefined) {
-//            `<p>${ingredient.ingredient}: ${ingredient.quantity} </p>`;
-//         }
-
-//         else {
-//             `<p>${ingredient.ingredient}: ${ingredient.quantity} ${ingredient.unit}</p>`
-//         }
-//     }
-// )}
-
 function buildDescription (ingredients) {
     return ingredients.map( ingredient => {
         if (ingredient.unit !== undefined) {
-            return `<p>${ingredient.ingredient}: ${ingredient.quantity} ${ingredient.unit}</p>`;   
+            return `<p class="recette__ingredients--p"><span class="recette__ingredients--p--span">${ingredient.ingredient}</span>: <span>${ingredient.quantity} ${ingredient.unit}</span></p>`;   
         }
         else if (ingredient.quantity !== undefined){
-            return `<p>${ingredient.ingredient}: ${ingredient.quantity}</p>`;
+            return `<p class="recette__ingredients--p"><span class="recette__ingredients--p--span">${ingredient.ingredient}</span>: <span> ${ingredient.quantity}</span></p>`;
         }
         else {
-            return `<p>${ingredient.ingredient}</p>`;  
+            return `<p class="recette__ingredients--p"><span class="recette__ingredients--p--span">${ingredient.ingredient}</span></p>`;  
         }
     }
 )}

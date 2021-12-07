@@ -33,22 +33,68 @@
         <section class="select">
             <label>Rechercher un ingrédient, appareil, ustensiles ou une recette</label>
             <div class="select-filter">
-                <div class="select-filter__item ingredients">
-                    <select>
-                        <option>Ingredients</option>
+                <div class="select-filter__item ">
+                    <select  name="" class="ingredients" id="">
+                        <option value="">Ingredients</option>
+                        <option value="lait de coco">Lait de coco</option>
+                        <option value="sucre">Sucre</option>
+                        <option value="concombre">Concombre</option>
                     </select>
                 </div>
-                <div class="select-filter__item appareil">
-                    <select>
-                        <option>Appareil</option>
+                <div class="select-filter__item ">
+                    <select  name="" id="" class="appareil">
+                        <option value="">Appareil</option>
+                        <option value="blender">Blender</option>
                     </select>
                 </div>
-                <div class="select-filter__item ustensiles">
-                    <select>
-                        <option>Ustensiles</option>
+                <div class="select-filter__item" >
+                    <select name="" id="" class="ustensiles">
+                        <option value="">Ustensiles</option>
+                        <option value="casseroles">Casseroles</option>>
                     </select>
                 </div>
             </div>
+
+            <div class="new-select">
+                <div>
+                    Ingredients
+                    <div>Ingredients</div>
+                    <div>Lait de coco</div>
+                    <div>Sucre</div>
+                    <div>Concombre</div>
+                </div>
+            </div>
+            <div class="select-filter">
+                <div>
+                    <div>
+                        Ingredients
+                        <ul>
+                            <li>Ingredients</li>
+                            <li>Lait de coco</li>
+                            <li>Sucre</li>
+                            <li>Concombre</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Appareil
+                        <ul>
+                            <li>Appareil</li>
+                            <li>Blender</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        Ustensiles
+                        <ul>
+                            <li>Ustensiles</li>
+                            <li>Casseroles</li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
         </section>
         <section class="recettes"></section>
         <section class="recettes-old"> 
@@ -160,5 +206,6 @@
 
     </main>
     <script src="js/main.js"></script>
+    <!--<script src="select.js"></script>-->
 </body>
 </html>

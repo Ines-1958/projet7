@@ -9,6 +9,11 @@ body a {
     text-decoration: none;
     color: black;
 }
+body ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-right: 40px;
+}
 
 
 .heading {
@@ -53,10 +58,16 @@ body a {
 
 .select {
     margin: 20px;
+    select {
+        color: #FFFFFF;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px; 
+    }
     .select-filter {
+       // display: none;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         &__item {
             margin-right: 20px;
             .ingredients {
@@ -86,6 +97,7 @@ body a {
     border: 2px solid green;
     margin-bottom: 20px;
     border-radius: 5px;
+    background-color: #E7E7E7;
     &__heading {
        background-color: #C7BEBE; 
        padding: 10px;
@@ -99,31 +111,39 @@ body a {
     justify-content: space-between;
     padding: 5px;
     width: 100%;
-    background-color: #E7E7E7;
+    background-color: #E7E7E7
     p {
         font-size: 13px;
     }
 
-    &__ingredients,
+    &__ingredients { 
         h2 {
             font-size: 16px;
         }
         &--p {
+            font-size: 13px;
             &--span {
                 font-weight: bold;
             }
         }
-    &__description {
-        width: 49%;
     }
+    // &__description {
+    //     width: 49%;
+    //     &--h2 {
+    //         font-size: 16px;
+    //     }
+    // }
 
     &__description {
+        width: 49%;
         &--h2 {
+            font-size: 16px;
             margin-left: 93px;
         }
         &--p {
             font-family: 'Lato', sans-serif;
             font-family: 'Roboto', sans-serif;
+            font-size: 13px;
         }
     }
 }
@@ -131,4 +151,6 @@ body a {
 .recettes-old {
     display: none; 
 }
-
+.new-select {
+    display:none;
+}
