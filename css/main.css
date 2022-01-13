@@ -72,6 +72,7 @@ body ul li {
 .select .select-filter__item {
   margin-right: 20px;
   color: #FFFFFF;
+  position: relative;
 }
 
 .select .select-filter__item .selected-items {
@@ -144,14 +145,15 @@ body ul li {
 
 .select .select-filter__donnees ul#ul-ingredients {
   height: 50rem;
-  width: 62rem;
-  max-width: 62rem;
+  width: 40rem;
+  max-width: 40rem;
 }
 
 .select .select-filter__donnees ul#ul-ingredients li {
   flex: 1 1 auto;
   width: auto;
   max-width: 31.33%;
+  margin-bottom: 1px;
 }
 
 .select .select-filter__donnees--label {
@@ -241,8 +243,63 @@ body ul li {
   display: none;
 }
 
+.new-select-items {
+  display: flex;
+  flex-direction: row;
+}
+
 .new-select {
-  display: none;
+  width: 135px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.new-select-ingredients {
+  background-color: #3282F7;
+}
+
+.new-select-ingredients::after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
+  font-size: 19px;
+  position: absolute;
+  top: 60px;
+  left: 7rem;
+}
+
+.new-select-appareil {
+  background-color: #68D9A4;
+}
+
+.new-select-appareil:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
+  font-size: 19px;
+  position: absolute;
+  top: 3.8rem;
+  left: 15rem;
+}
+
+.new-select-ustensiles {
+  background-color: #ED6454;
+}
+
+.new-select-ustensiles:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
+  font-size: 19px;
+  position: absolute;
+  top: 3.8rem;
+  left: 24rem;
+}
+
+.custom-select-items {
+  display: flex;
+  flex-direction: row;
 }
 
 select {
