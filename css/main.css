@@ -71,7 +71,6 @@ body ul li {
 
 .select .select-filter__item {
   margin-right: 20px;
-  color: #FFFFFF;
   position: relative;
 }
 
@@ -146,7 +145,6 @@ body ul li {
 .select .select-filter__donnees ul#ul-ingredients {
   height: 50rem;
   width: 40rem;
-  max-width: 40rem;
 }
 
 .select .select-filter__donnees ul#ul-ingredients li {
@@ -244,8 +242,18 @@ body ul li {
 }
 
 .new-select-items {
-  display: flex;
-  flex-direction: row;
+  color: #FFFFFF;
+  margin-right: 20px;
+  position: relative;
+}
+
+.new-select-items > *:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
+  font-size: 19px;
+  position: absolute;
+  left: 7rem;
 }
 
 .new-select {
@@ -259,42 +267,12 @@ body ul li {
   background-color: #3282F7;
 }
 
-.new-select-ingredients::after {
-  content: "\f107";
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 900;
-  font-size: 19px;
-  position: absolute;
-  top: 60px;
-  left: 7rem;
-}
-
 .new-select-appareil {
   background-color: #68D9A4;
 }
 
-.new-select-appareil:after {
-  content: "\f107";
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 900;
-  font-size: 19px;
-  position: absolute;
-  top: 3.8rem;
-  left: 15rem;
-}
-
 .new-select-ustensiles {
   background-color: #ED6454;
-}
-
-.new-select-ustensiles:after {
-  content: "\f107";
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 900;
-  font-size: 19px;
-  position: absolute;
-  top: 3.8rem;
-  left: 24rem;
 }
 
 .custom-select-items {
@@ -312,4 +290,20 @@ select {
 
 .select-filter-old {
   display: none;
+}
+
+.custom-select-items {
+  display: flex;
+}
+
+.active {
+  display: block;
+}
+
+.tags {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+  border-radius: 5px;
+  margin-right: 20px;
 }

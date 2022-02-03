@@ -1,6 +1,8 @@
 const ingredientSelected = [];
 const appareilSelected = [];
 const ustensileSelected = [];
+const tagSelected = [];
+console.log(tagSelected);
 
 async function  getRecipies () {
     const response = await fetch('/assets/recipies.json')
@@ -23,7 +25,6 @@ async function monSelect () {
                         <!--<option value="">Ingredients</option>-->
                     `;
                     const ingredients = [].concat.apply([], recipies.map((recipie) => recipie.ingredients));
-                    console.log(ingredients)
                     const uniqueIngredients = ingredients.filter((value, index, self) => index === self.findIndex((t) => t.ingredient.toLowerCase() === value.ingredient.toLowerCase()))
                     console.log(uniqueIngredients)
                     uniqueIngredients.forEach(i => monHtml +=  `<option value="${i.ingredient}">${i.ingredient}</option>`) 
@@ -33,7 +34,6 @@ async function monSelect () {
                     <select  name="" id="select-appareil" class="appareil">
                        <!-- <option value="">Appareil</option>-->` 
                         const appareil = [...new Set(recipies.map((recipie) => recipie.appliance))];
-                        console.log(appareil);
                         appareil.forEach(e => monHtml += `<option value="${e}">${e}</option>`);
                         monHtml += `  
                     </select>
@@ -58,9 +58,6 @@ window.onload = () => {
     const selectElementAppareil = document.getElementById("select-appareil");
     const selectElementUstensiles = document.getElementById("select-ustensiles");
 
-    const customSelectItems = document.createElement("div");
-    customSelectItems.classList.add("custom-select-items");
-
     //Récupération 1ère div "select-filter"
     const selectDiv = document.querySelector(".select-filter__item"); 
 
@@ -71,98 +68,100 @@ window.onload = () => {
 
     //Création div et icone ingredient
     const selectFilterIngredient = document.createElement("div");
-    selectFilterIngredient.classList.add("select-filter-selected", "ingredient-selected" );
+    selectFilterIngredient.classList.add("select-filter-selected", "select-hide", "ingredient-selected");
     selectedItems.appendChild(selectFilterIngredient);
     const iconeIngredient = document.createElement("i");
     iconeIngredient.classList.add("far", "fa-times-circle");
     selectFilterIngredient.appendChild(iconeIngredient);
-    
-    selectDiv.appendChild(selectedItems);
+    //selectDiv.appendChild(selectedItems);
 
     //Création div et icone Appareil
     const selectFilterAppareil = document.createElement("div");
-    selectFilterAppareil.classList.add("select-filter-selected", "appareil-selected" );
+    selectFilterAppareil.classList.add("select-filter-selected", "select-hide", "appareil-selected");
     selectedItems.appendChild(selectFilterAppareil);
     const iconeAppareil = document.createElement("i");
     iconeAppareil.classList.add("far", "fa-times-circle");
     selectFilterAppareil.appendChild(iconeAppareil);
-
-    selectDiv.appendChild(selectedItems);
+    //selectDiv.appendChild(selectedItems);
 
     //Création div et icone Ustensiles
     const selectFilterUstensile = document.createElement("div");
-    selectFilterUstensile.classList.add("select-filter-selected", "ustensile-selected" );
+    selectFilterUstensile.classList.add("select-filter-selected", "select-hide","ustensile-selected");
     selectedItems.appendChild(selectFilterUstensile);
     const iconeUstensile = document.createElement("i")
     iconeUstensile.classList.add("far", "fa-times-circle");
     selectFilterUstensile.appendChild(iconeUstensile);
-
+    
     selectDiv.appendChild(selectedItems);
 
     //CREATION DU NOUVEAU SELECT
-    const newSelectItems = document.createElement("div");
-    newSelectItems.classList.add("new-select-items");
-    selectDiv.appendChild(newSelectItems);
-
-    //CREATION DU NOUVEAU SELECT INGREDIENT
-    const newSelectIngredient = document.createElement("div");
-    newSelectIngredient.classList.add("new-select", "new-select-ingredients");
-    newSelectIngredient.textContent = "Ingredients";
-    //Ajout de l'option actuellement choisie dans le select
-    //newSelect.innerHTML = selectFilterIngredient.options[selectFilterIngredient.selectedIndex].innerHTML;
-    newSelectItems.appendChild(newSelectIngredient);
-    //console.log(newSelect);
-
-    //CREATION DU NOUVEAU SELECT APPAREIL
-    const newSelectAppareil = document.createElement("div");
-    newSelectAppareil.classList.add("new-select", "new-select-appareil");
-    newSelectAppareil.textContent = "Appareil";
-    newSelectItems.appendChild(newSelectAppareil);
-
-    //CREATION DU NOUVEAU SELECT USTENSILE
-    const newSelectUstensiles = document.createElement("div");
-    newSelectUstensiles.classList.add("new-select", "new-select-ustensiles");
-    newSelectUstensiles.textContent = "Ustensiles";
-    newSelectItems.appendChild(newSelectUstensiles);
-
-    //CREATION DES BLOCS DANS LE DOM
+    const customSelectItems = document.createElement("div");
+    customSelectItems.classList.add("custom-select-items");
     selectDiv.appendChild(customSelectItems);
 
-    //1.CREATION DU BLOC INGREDIENTS DANS LE DOM
+    const newSelectItemsIngredients = document.createElement("div");
+    newSelectItemsIngredients.classList.add("new-select-items");
+    customSelectItems.appendChild(newSelectItemsIngredients);
+
+    const newSelectItemsAppareil = document.createElement("div");
+    newSelectItemsAppareil.classList.add("new-select-items");
+    customSelectItems.appendChild(newSelectItemsAppareil);
+
+    const newSelectItemsUstensiles = document.createElement("div");
+    newSelectItemsUstensiles.classList.add("new-select-items");
+    customSelectItems.appendChild(newSelectItemsUstensiles);
+
+    //CREATION DU NOUVEAU SELECT INGREDIENT ET DU BLOC INGREDIENTS DANS LE DOM
+    const newSelectIngredient = document.createElement("div");
+    newSelectIngredient.classList.add("new-select", "new-select-ingredients");
+    newSelectIngredient.textContent = "Ingrédients";
+    newSelectIngredient.setAttribute("id", "new-ingredient")
+
+    //Ajout de l'option actuellement choisie dans le select
+    //newSelect.innerHTML = selectFilterIngredient.options[selectFilterIngredient.selectedIndex].innerHTML;
+
     const selectIngredients = document.createElement("div");
     selectIngredients.classList.add("select-filter__donnees", "select-hide", "select-filter__ingredient");
     selectIngredients.setAttribute("id", "ingredients");
-    console.log(selectIngredients)
-
-    //TEST//A SUPPRIMER
-    //var myIngredient = document.getElementById("ingredient");
-    var myIngredient = document.querySelector(".select-filter__ingredient");
-    console.log(myIngredient)
+    //console.log(selectIngredients)
 
     const searchIngredient = document.createElement("div");
     searchIngredient.classList.add("select-filter__donnees--label");
     searchIngredient.textContent= "Rechercher un ingredient";
 
     selectIngredients.appendChild(searchIngredient);
-    customSelectItems.appendChild(selectIngredients);
-    selectDiv.appendChild(customSelectItems);
-    console.log(selectIngredients);
+    //customSelectItems.appendChild(selectIngredients);
+    // selectDiv.appendChild(customSelectItems);
+    // console.log(selectIngredients);
 
-    //2.CREATION DU BLOC APPAREIL DANS LE DOM
-   const selectAppareil = document.createElement("div");
-   selectAppareil.classList.add("select-filter__donnees", "select-hide");
-   selectAppareil.setAttribute("id", "appareil");
+    newSelectItemsIngredients.appendChild(newSelectIngredient);
+    newSelectItemsIngredients.appendChild(selectIngredients);
+    //console.log(newSelect);
 
-   const searchAppareil = document.createElement("div");
-   searchAppareil.classList.add("select-filter__donnees--label");
-   searchAppareil.textContent= "Rechercher un appareil";
+    //CREATION DU NOUVEAU SELECT APPAREIL ET CREATION DU BLOC APPAREIL DANS LE DOM
+    const newSelectAppareil = document.createElement("div");
+    newSelectAppareil.classList.add("new-select", "new-select-appareil");
+    newSelectAppareil.textContent = "Appareil";
 
-   selectAppareil.appendChild(searchAppareil);
-   customSelectItems.appendChild(selectAppareil);
-   selectDiv.appendChild(customSelectItems);
-   //console.log(searchAppareil);
+    const selectAppareil = document.createElement("div");
+    selectAppareil.classList.add("select-filter__donnees", "select-hide");
+    selectAppareil.setAttribute("id", "appareil");
 
-    //3.CREATION DU BLOC USTENSILES DANS LE DOM
+    const searchAppareil = document.createElement("div");
+    searchAppareil.classList.add("select-filter__donnees--label");
+    searchAppareil.textContent= "Rechercher un appareil";
+
+    selectAppareil.appendChild(searchAppareil);
+
+    newSelectItemsAppareil.appendChild(newSelectAppareil);
+    newSelectItemsAppareil.appendChild(selectAppareil);
+
+    //CREATION DU NOUVEAU SELECT USTENSILE ET CREATION DU BLOC USTENSILES DANS LE DOM
+    const newSelectUstensiles = document.createElement("div");
+    newSelectUstensiles.classList.add("new-select", "new-select-ustensiles");
+    newSelectUstensiles.textContent = "Ustensiles";
+    //newSelectItems.appendChild(newSelectUstensiles);
+
     const selectUstensile = document.createElement("div");
     selectUstensile.classList.add("select-filter__donnees", "select-hide");
     selectUstensile.setAttribute("id", "ustensiles");
@@ -172,8 +171,9 @@ window.onload = () => {
     searchUstensile.textContent= "Rechercher un ustensile";
 
     selectUstensile.appendChild(searchUstensile);
-    customSelectItems.appendChild(selectUstensile);
-    selectDiv.appendChild(customSelectItems);
+
+    newSelectItemsUstensiles.appendChild(newSelectUstensiles);
+    newSelectItemsUstensiles.appendChild(selectUstensile);
 
     //Création menu déroulant ingredients et ajout de classe et id
     const menuDeroulantIngredients = document.createElement("ul");
@@ -194,38 +194,30 @@ window.onload = () => {
         newOption.addEventListener("click", (event) => {
             //selectIngredients.classList.remove("select-hide");
             const filtreSelectionneIngredient = event.target.getAttribute("data-filter");
-            console.log(filtreSelectionneIngredient);
-            console.log(ingredientSelected);
+            tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
+            //console.log(filtreSelectionneIngredient);
+            //console.log(ingredientSelected);
+            console.log(tagSelected);
             //console.log(ingredientSelected.push(filtreSelectionneIngredient));
-            ingredientSelected.push(filtreSelectionneIngredient);
+            //ingredientSelected.push(filtreSelectionneIngredient);
             //selectFilterIngredient.innerHTML = filtreSelectionneIngredient;
 
             selectElementIngredients.selectedIndex = option.index;
 
-            function refreshSelectedItems () {
-    
+            function refreshIngredientSelectedItems () {
                 //document.getElementById('items-selected').innerHTML = "";
                 selectFilterIngredient.innerHTML = ""; 
                 selectFilterIngredient.innerHTML = filtreSelectionneIngredient; 
+
+                selectFilterIngredient.classList.remove("select-hide");
+                //newSelectIngredient.style.display = "none";
                 //document.getElementById('items-selected').innerHTML = filtreSelectionneIngredient; 
             }
-            refreshSelectedItems();
-            console.log(refreshSelectedItems);
-
-            // for (let option of selectElementIngredients.options) {
-            //     if(option.innerHTML !== this.innerHTML)  {
-            //         //on active la bonne option dans le select
-            //         selectElementIngredients.selectedIndex = option.index;
-
-            //         //on change le texte de notre newSelect
-            //         ingredientSelected.innerHTML = filtreSelectionneIngredient;
-            //         console.log(ingredientSelected.innerHTML = filtreSelectionneIngredient)
-            //         console.log(ingredientSelected);
-            //         break;
-            //     }
-            // }
-            //on simule un clic sur newSelect
-            //newSelect.click();//pour fermer le menu
+            newSelectIngredient.click();//pour fermer le menu
+            newSelectIngredient.classList.toggle("select-hide");
+            refreshIngredientSelectedItems();
+            tagsItems();
+            //console.log(tagsItems);
         })
 
         //Ajout de l'option dans le menu Deroulant
@@ -236,22 +228,63 @@ window.onload = () => {
 
     newSelectIngredient.addEventListener("click", function(e) {
         e.stopPropagation();
-        console.log(this)
-        selectIngredients.classList.remove("select-hide");
+        //console.log(this)
+        //selectIngredients.classList.remove("select-hide");
         //retrait du select-hide du menu
-        //this.nextSibling.classList.toggle("select-hide");
-        //this.classList.add("select-hide");
-        
+        this.nextSibling.classList.toggle("select-hide");
+        this.classList.add("select-hide");
+        //menuDeroulantIngredients.classList.toggle("select-hide");
+
         //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        this.classList.toggle("active");
+        //this.classList.toggle("active");//.new-select.active::after{border-color, top}
+        //this.classList.toggle("select-hide");
+
+        //Fermeture d'une dropdown à l'ouverture d'une autre
+        selectAppareil.classList.add("select-hide");
+        newSelectAppareil.classList.remove("select-hide");
+
+        selectUstensile.classList.add("select-hide");
+        newSelectUstensiles.classList.remove("select-hide");
     })
 
+    
+
+    searchIngredient.addEventListener("click", function () {
+        this.innerHTML = "";
+        if(this.getAttribute("contenteditable") == "true") {
+            this.setAttribute("contenteditable", "false");
+        }
+        else {
+            this.setAttribute("contenteditable", "true");
+            //this.innerHTML = "Ingrédients";
+            //on donne le focus à notre champ
+            this.focus();
+        }
+    })
+
+    //on met en place le filtre de contenu sur l'événement  input
+    searchIngredient.addEventListener("input", function(e) {
+        //on récupère la saisie en minuscules
+        let saisie = this.textContent.toLowerCase();
+        console.log(saisie);
+        console.log(e);
+
+        //on parcourt tous les enfants de notre menu(newMenu)
+        for(let option of menuDeroulantIngredients.children) {
+            //on vérifie si la saisie existe dans la chaîne
+            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                option.style.display = "block";
+            }
+            else {
+                option.style.display = "none";
+            }
+        }
+    })
 
     //Création menu déroulant appareil et ajout de classe et id
     const menuDeroulantAppareil = document.createElement("ul");
     menuDeroulantAppareil.classList.add("select-items", "select-hide");
     menuDeroulantAppareil.setAttribute("id", "ul-appareil");
-    console.log(menuDeroulantAppareil);
         
     //Boucle sur les options dans le select et les copier dans la div
     for(let option of selectElementAppareil.options) {
@@ -265,42 +298,89 @@ window.onload = () => {
         newOption.addEventListener("click", (event) => {
 
             const filtreSelectionneAppareil = event.target.getAttribute("data-filter");
-            console.log(filtreSelectionneAppareil);
-            
+            tagSelected.push({couleur:"vert", nom:filtreSelectionneAppareil});
+            //console.log(ingredientSelected.push(filtreSelectionneIngredient));
+            //appareilSelected.push(filtreSelectionneAppareil);
+            //selectFilterIngredient.innerHTML = filtreSelectionneIngredient;
 
-            for (let option of selectElementAppareil.options) {
-                if(option.innerHTML !== this.innerHTML)  {
-                    //on active la bonne option dans le select
-                    selectElementAppareil.selectedIndex = option.index;
+            selectElementAppareil.selectedIndex = option.index;
+    
+            function refreshAppareilSelectedItems () {
+                //document.getElementById('items-selected').innerHTML = "";
+                selectFilterAppareil.innerHTML = ""; 
+                selectFilterAppareil.innerHTML = filtreSelectionneAppareil; 
 
-                    //on change le texte de notre newSelect
-                    appareilSelected.innerHTML = filtreSelectionneAppareil;
-                    break;
-                }
+                selectFilterAppareil.classList.remove("select-hide");
+                //newSelectIngredient.style.display = "none";
+                //document.getElementById('items-selected').innerHTML = filtreSelectionneIngredient; 
             }
             //on simule un clic sur newSelect
-            //newSelect.click();//pour fermer le menu
+            newSelectAppareil.click();//pour fermer le menu
+            newSelectAppareil.classList.toggle("select-hide");
+            //newSelectIngredient.classList.toggle("select-hide");
+            //newSelectIngredient.classList.toggle("active")
+            refreshAppareilSelectedItems();
+            tagsItems();
         })
 
         //Ajout de l'option dans le menu Deroulant
         menuDeroulantAppareil.appendChild(newOption);
-        //console.log(newOption);
-        
+        //console.log(newOption); 
     }
     //selectDiv.appendChild(menuDeroulant);
     selectAppareil.appendChild(menuDeroulantAppareil);
-    console.log(selectAppareil);
+    //console.log(selectAppareil);
 
-    newSelectAppareil.addEventListener("click", function(e) {
+    newSelectAppareil.addEventListener("click", function(e){
         e.stopPropagation();
-        console.log(this)
         //retrait du select-hide du menu
-        selectAppareil.classList.remove("select-hide");
-        //this.nextSibling.classList.toggle("select-hide");
-        //this.classList.add("select-hide");
+        this.nextSibling.classList.toggle("select-hide");
+        //selectAppareil.classList.remove("select-hide");
+        this.classList.add("select-hide");
         
         //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        this.classList.toggle("active");
+        //this.classList.toggle("active");
+
+        //Fermeture d'une dropdown à l'ouverture d'une autre
+        selectIngredients.classList.add("select-hide");
+        newSelectIngredient.classList.remove("select-hide");
+        
+        selectUstensile.classList.add("select-hide");
+        newSelectUstensiles.classList.remove("select-hide");
+    })
+       
+    
+    searchAppareil.addEventListener("click", function () {
+
+        this.innerHTML = "";
+        if(this.getAttribute("contenteditable") == "true") {
+        this.setAttribute("contenteditable", "false");
+        //this.innerHTML = filtreSelectionneIngredient;
+        }
+        else {
+            this.setAttribute("contenteditable", "true");
+            //this.innerHTML = "Ingrédients";
+            //on donne le focus à notre champ
+            this.focus();
+        }
+    })
+
+    //on met en place le filtre de contenu sur l'événement  input
+    searchAppareil.addEventListener("input", function(e) {
+        //on récupère la saisie en minuscules
+        let saisie = this.textContent.toLowerCase();
+        console.log(saisie);
+
+        //on parcourt tous les enfants de notre menu(newMenu)
+        for(let option of menuDeroulantAppareil.children) {
+            //on vérifie si la saisie existe dans la chaîne
+            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                option.style.display = "block";
+            }
+            else {
+                option.style.display = "none";
+            }
+        }
     })
 
     //Création menu déroulant ustensiles et ajout de classe et id
@@ -310,7 +390,6 @@ window.onload = () => {
         
     //Boucle sur les options dans le select et les copier dans la div
     for(let option of selectElementUstensiles.options) {
-        //console.log(option)
         //Création li pour cette option
         const newOption = document.createElement("li");
 
@@ -321,21 +400,26 @@ window.onload = () => {
 
         newOption.addEventListener("click", (event) => {
 
-            const filtreSelectionneUstensiles = event.target.getAttribute("data-filter");
-            console.log(filtreSelectionneUstensiles);
+            const filtreSelectionneUstensile = event.target.getAttribute("data-filter");
+            tagSelected.push({couleur:"orange", nom:filtreSelectionneUstensile});
             
-            for (let option of selectElementUstensiles.options) {
-                if(option.innerHTML !== this.innerHTML)  {
-                    //on active la bonne option dans le select
-                    selectElementUstensiles.selectedIndex = option.index;
+            //ustensileSelected.push(filtreSelectionneUstensile);
 
-                    //on change le texte de notre newSelect
-                    ustensileSelected.innerHTML = filtreSelectionneUstensiles;
-                    break;
-                }
+            selectElementUstensiles.selectedIndex = option.index;
+            
+            function refreshUstensileSelectedItems () {
+                //document.getElementById('items-selected').innerHTML = "";
+                selectFilterUstensile.innerHTML = ""; 
+                selectFilterUstensile.innerHTML = filtreSelectionneUstensile; 
+
+                selectFilterUstensile.classList.remove("select-hide"); 
             }
+            refreshUstensileSelectedItems();
+            tagsItems();
+
             //on simule un clic sur newSelect
-            //newSelect.click();//pour fermer le menu
+            newSelectUstensiles.click();//pour fermer le menu
+            newSelectUstensiles.classList.toggle("select-hide");
         })
         //Ajout de l'option dans le menu Deroulant
         menuDeroulantUstensiles.appendChild(newOption);
@@ -346,15 +430,93 @@ window.onload = () => {
 
     newSelectUstensiles.addEventListener("click", function(e) {
         e.stopPropagation();
-        console.log(this)
+        //console.log(this)
         //retrait du select-hide du menu
-        selectUstensile.classList.remove("select-hide");
-        //this.nextSibling.classList.toggle("select-hide");
-        //this.classList.add("select-hide");
+        this.nextSibling.classList.toggle("select-hide");
+        //selectUstensile.classList.remove("select-hide");
+        this.classList.add("select-hide");
         
         //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        this.classList.toggle("active");
+        //this.classList.toggle("active");
+
+        //Fermeture d'une dropdown à l'ouverture d'une autre
+        selectIngredients.classList.add("select-hide");
+        newSelectIngredient.classList.remove("select-hide");
+
+        selectAppareil.classList.add("select-hide");
+        newSelectAppareil.classList.remove("select-hide");
     })
+
+    searchUstensile.addEventListener("click", function () {
+
+        this.innerHTML = "";
+        if(this.getAttribute("contenteditable") == "true") {
+        this.setAttribute("contenteditable", "false");
+        //this.innerHTML = filtreSelectionneIngredient;
+        }
+        else {
+            this.setAttribute("contenteditable", "true");
+            //this.innerHTML = "Ingrédients";
+            //on donne le focus à notre champ
+            this.focus();
+        }
+    })
+
+    //on met en place le filtre de contenu sur l'événement  input
+    searchUstensile.addEventListener("input", function(e) {
+        //on récupère la saisie en minuscules
+        let saisie = this.textContent.toLowerCase();
+        console.log(saisie);
+        console.log(e);
+
+        //on parcourt tous les enfants de notre menu(newMenu)
+        for(let option of menuDeroulantUstensiles.children) {
+            //on vérifie si la saisie existe dans la chaîne
+            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                option.style.display = "block";
+            }
+            else {
+                option.style.display = "none";
+            }
+        }
+    })
+
+    
+    function tagsItems () {
+        const tagConteneur = document.getElementById("items-selected");
+        tagConteneur.innerHTML = "";
+        
+        tagSelected.forEach((element ) => {
+            const tag = document.createElement("div");
+            tag.innerHTML = element.nom;
+            tag.classList.add("tags", "bleu", "vert", "orange");
+
+            const closeButton = document.createElement("i");
+            closeButton.classList.add("far", "fa-times-circle");
+            tag.appendChild(closeButton);
+
+            if(element.couleur === 'bleu') {
+                tag.style.backgroundColor = "#3282F7";   
+            }
+            else if (element.couleur === 'vert') {
+                tag.style.backgroundColor = "#68D9A4";
+            }
+            else if (element.couleur === 'orange') {
+                tag.style.backgroundColor = "#ED6454";
+            }
+
+            closeButton.addEventListener("click", buttonClose);
+            function buttonClose () {
+                //tag.innerHTML = "";
+                //tagSelected.splice("tag");
+                tagSelected.pop();
+                tagsItems();
+                //tagConteneur.innerHTML = "";   
+            }
+            tagConteneur.appendChild(tag);
+        })
+    };
+   //tagsItems();
 }
 
 async function mesRecettes () {
@@ -379,8 +541,7 @@ async function mesRecettes () {
             </a>    
             </div>
          `
-         section.innerHTML += myHtml;
-       
+         section.innerHTML += myHtml;  
     })
 }
 mesRecettes();
@@ -405,16 +566,46 @@ function buildDescription (ingredients) {
 const filtreCards = document.getElementById("filtre-cards");
 
 async function cardFilter () {
-    console.log("toto")
     const recipies = await getRecipies();
     filtreCards.addEventListener("input", function() {
         let saisie = this.value.toLowerCase().trim();//trim pour supprimer les espaces dans la saisie
     
         recipies.forEach((card) => {
-            console.log(`recette-${card.id}`);
+            //console.log(`recette-${card.id}`);
             var carteFiltre = document.getElementById(`recette-${card.id}`);
             carteFiltre.style.display = (card.name.toLowerCase().trim().includes(saisie)) ? "block" : "none";//fonction ternaire:if, display block, else, display none
         });
     });
 }
 cardFilter();
+
+// async function ingredientsListFilter () {
+//     const recipies = await getRecipies();
+//     filtreCards.addEventListener("input", function () {
+//         let saisie = this.value.toLowerCase().trim();
+//         recipies.forEach((list) => {
+//             //console.log(`${buildDescription(list.ingredients)}`);
+//             var listeIngredientFiltre = document.getElementById(`recette-${list.id}`);
+//             listeIngredientFiltre.style.display = (`${buildDescription(list.ingredients)}`.toLowerCase().trim().includes(saisie)) ? "block" : "none";
+//         })
+//     })
+// }
+// ingredientsListFilter();
+
+// async function descriptionFilter () {
+//     const recipies = await getRecipies();
+//     filtreCards.addEventListener("input", function() {
+//         let saisie = this.value.toLowerCase().trim();
+//         recipies.forEach((describe) => {
+//             //console.log(describe.description);
+//             var descriptionFiltre = document.getElementById(`recette-${describe.id}`);
+//             descriptionFiltre.style.display = (describe.description.toLowerCase().trim().includes(saisie)) ? "block" : "none";//fonction ternaire:if, display block, else, display none
+//         });
+//     });
+// }
+// descriptionFilter();
+
+// function test () {
+//     if 
+// }
+
