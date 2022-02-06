@@ -1,7 +1,7 @@
 const ingredientSelected = [];
 const appareilSelected = [];
 const ustensileSelected = [];
-const tagSelected = [];
+let tagSelected = [];
 console.log(tagSelected);
 
 async function  getRecipies () {
@@ -493,6 +493,7 @@ window.onload = () => {
 
             const closeButton = document.createElement("i");
             closeButton.classList.add("far", "fa-times-circle");
+            closeButton.setAttribute("name", element.nom);
             tag.appendChild(closeButton);
 
             if(element.couleur === 'bleu') {
@@ -506,12 +507,11 @@ window.onload = () => {
             }
 
             closeButton.addEventListener("click", buttonClose);
-            function buttonClose () {
-                //tag.innerHTML = "";
-                //tagSelected.splice("tag");
-                tagSelected.pop();
+            function buttonClose (e) {
+                const name = e.target.getAttribute("name");
+                tagSelected = tagSelected.filter(tag => tag.nom !== name);
+                console.log(tagSelected);
                 tagsItems();
-                //tagConteneur.innerHTML = "";   
             }
             tagConteneur.appendChild(tag);
         })
