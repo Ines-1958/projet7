@@ -613,6 +613,9 @@ const newSelectItemsAppareil = document.createElement("div");
 newSelectItemsAppareil.classList.add("new-select-items");
 selectDiv.appendChild(newSelectItemsAppareil);
 
+const newSelectItemsUstensiles = document.createElement("div");
+newSelectItemsUstensiles.classList.add("new-select-items");
+selectDiv.appendChild(newSelectItemsUstensiles);
 
 //CREATION DU NOUVEAU SELECT INGREDIENT ET DU BLOC INGREDIENTS DANS LE DOM
 const newSelectIngredient = document.createElement("div");
@@ -626,7 +629,6 @@ const selectIngredients = document.createElement("div");
 selectIngredients.classList.add("select-filter__donnees", "select-hide", "select-filter__ingredient");
 selectIngredients.setAttribute("id", "ingredients");
 console.log(selectIngredients)
-
 
 const searchIngredient = document.createElement("div");
 searchIngredient.classList.add("select-filter__donnees--label");
@@ -659,11 +661,25 @@ selectAppareil.appendChild(searchAppareil);
 newSelectItemsAppareil.appendChild(newSelectAppareil);
 newSelectItemsAppareil.appendChild(newSelectAppareil);
 
-//CREATION DU NOUVEAU SELECT USTENSILE
+//CREATION DU NOUVEAU SELECT USTENSILE ET CREATION DU BLOC USTENSILES DANS LE DOM
 const newSelectUstensiles = document.createElement("div");
 newSelectUstensiles.classList.add("new-select", "new-select-ustensiles");
 newSelectUstensiles.textContent = "Ustensiles";
-newSelectItems.appendChild(newSelectUstensiles);
+//newSelectItems.appendChild(newSelectUstensiles);
+
+const selectUstensile = document.createElement("div");
+selectUstensile.classList.add("select-filter__donnees", "select-hide");
+selectUstensile.setAttribute("id", "ustensiles");
+
+const searchUstensile = document.createElement("div");
+searchUstensile.classList.add("select-filter__donnees--label");
+searchUstensile.textContent= "Rechercher un ustensile";
+
+selectUstensile.appendChild(searchUstensile);
+
+newSelectItemsUstensiles.appendChild(newSelectUstensiles);
+newSelectItemsUstensiles.appendChild()
+
 
 //CREATION DES BLOCS DANS LE DOM
 selectDiv.appendChild(customSelectItems);
@@ -698,18 +714,18 @@ selectDiv.appendChild(customSelectItems);
 // selectDiv.appendChild(customSelectItems);
 //console.log(searchAppareil);
 
-//3.CREATION DU BLOC USTENSILES DANS LE DOM
-const selectUstensile = document.createElement("div");
-selectUstensile.classList.add("select-filter__donnees", "select-hide");
-selectUstensile.setAttribute("id", "ustensiles");
+// //3.CREATION DU BLOC USTENSILES DANS LE DOM
+// const selectUstensile = document.createElement("div");
+// selectUstensile.classList.add("select-filter__donnees", "select-hide");
+// selectUstensile.setAttribute("id", "ustensiles");
 
-const searchUstensile = document.createElement("div");
-searchUstensile.classList.add("select-filter__donnees--label");
-searchUstensile.textContent= "Rechercher un ustensile";
+// const searchUstensile = document.createElement("div");
+// searchUstensile.classList.add("select-filter__donnees--label");
+// searchUstensile.textContent= "Rechercher un ustensile";
 
-selectUstensile.appendChild(searchUstensile);
-customSelectItems.appendChild(selectUstensile);
-selectDiv.appendChild(customSelectItems);
+// selectUstensile.appendChild(searchUstensile);
+// customSelectItems.appendChild(selectUstensile);
+// selectDiv.appendChild(customSelectItems);
 
 //Création menu déroulant ingredients et ajout de classe et id
 const menuDeroulantIngredients = document.createElement("ul");
@@ -916,4 +932,230 @@ newSelectUstensiles.addEventListener("click", function(e) {
     //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
     this.classList.toggle("active");
 })
+
+
+
+
+
+function tagsItems (tagSelected) {
+    document.getElementById('items-selected').innerHTML = "";
+    //tagSelected.forEach(item => console.log(item));
+    tagSelected.forEach(function (element) {
+        if(element.couleur == 'bleu') {
+            console.log("MAMAMAMAM");
+        }
+    })
 }
+
+function closeDropdown () {
+    if (openSelectIngredients === true) {
+        console.log("daddy");
+    }
+}
+    if //menuDeroulantAppareil.classList.remove("active");
+    document.getElementById("appareil").style.display = "none";
+    newSelectAppareil.style.display = "block";
+    console.log(menuDeroulantAppareil)
+
+function openSelectIngredients () {
+    newSelectIngredient.addEventListener("click", function(e) {
+        e.stopPropagation();
+        //console.log(this)
+        //selectIngredients.classList.remove("select-hide");
+        //retrait du select-hide du menu
+        this.nextSibling.classList.toggle("select-hide");
+        this.classList.add("select-hide");
+        //menuDeroulantIngredients.classList.toggle("select-hide");
+
+        //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
+        this.classList.toggle("active");//.new-select.active::after{border-color, top}
+        //this.classList.toggle("select-hide");
+    })
+}
+
+var openSelect = function () {
+    newSelectIngredient.addEventListener("click", function(e) {
+        e.stopPropagation();
+        //console.log(this)
+        //selectIngredients.classList.remove("select-hide");
+        //retrait du select-hide du menu
+        this.nextSibling.classList.toggle("select-hide");
+        this.classList.add("select-hide");
+        //menuDeroulantIngredients.classList.toggle("select-hide");
+
+        //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
+        this.classList.toggle("active");//.new-select.active::after{border-color, top}
+        //this.classList.toggle("select-hide");
+    })
+}
+
+
+const filtreCards = document.getElementById("filtre-cards");//input
+
+async function cardFilter () {
+    const recipies = await getRecipies();
+    filtreCards.addEventListener("input", function() {
+        let saisie = this.value.toLowerCase().trim();//trim pour supprimer les espaces dans la saisie
+    
+        recipies.forEach((card) => {
+            //console.log(`recette-${card.id}`);
+            var carteFiltre = document.getElementById(`recette-${card.id}`);
+            carteFiltre.style.display = (card.name.toLowerCase().trim().includes(saisie)) ? "block" : "none";//fonction ternaire:if, display block, else, display none
+        });
+    });
+}
+cardFilter();
+
+const filtreTagIngredient = document.getElementById("ingredients");
+
+async function tagFilter () {
+    const recipies = await getRecipies();
+    filtreTagIngredient.addEventListener("input", (event) => {
+        let saisieTag = event.target.innerHTML.toLowerCase();
+
+        recipies.forEach((card) => {
+            var carteFiltre = document.getElementById(`recette-${card.id}`);
+            carteFiltre.style.display = (card.description.toLowerCase().trim().includes(saisieTag)) ? "block" : "none";
+        });
+        cardFilter();
+    });
+}
+tagFilter();
+
+const filtreCards = document.getElementById("filtre-cards"); 
+    //filtreCards.addEventListener("input", cardsFiltres)
+    filtreCards.addEventListener("input", function() {
+        const recipies = await getRecipies();
+        let saisie = this.textContent.toLocaleLowerCase();
+
+        recipies.forEach(function(cards) {
+            if(cards.textContent.toLowerCase().filter(saisie) !== -1){
+                cards.style.display = "block";
+            }
+            else {
+                cards.style.display = "none";
+            }
+        })
+        
+    })
+
+    recipies.forEach((card) => {
+        var carteFiltre = document.getElementById(`recette-${card.id}`);
+        if(card.name.toLowerCase().trim().includes(saisieTag) || `${buildDescription(card.ingredients)}`.toLowerCase().trim().includes(saisieTag) || card.description.toLowerCase().trim().includes(saisieTag)) {
+            carteFiltre.style.display = "block";
+        }
+        else {
+            carteFiltre.style.display = "none";
+        }
+    });
+    
+    //COMPLETER LES CONDITIONS DANS LE IF ET ELSE POUR CARDFILTER.NAME ET DESCRIPTION
+
+    //CREER DIV, lui donner une classe hide, un innerHTML avec message d'erreur, dynamiser cette div en fonction du filtre
+
+    const ingredients = [].concat.apply([], recipies.map((recipie) => recipie.ingredients));
+    const uniqueIngredients = ingredients.filter((value, index, self) => index === self.findIndex((t) => t.ingredient.toLowerCase() === value.ingredient.toLowerCase()))
+
+    const appareil = [...new Set(recipies.map((recipie) => recipie.appliance))];
+    const ustensiles = [...new Set(recipies.map((recipie) => recipie.ustensils).flat())];
+
+    tagSelected = tagSelected.some()
+
+    function test(element, index, tagSelected) {
+        return element.toLowerCase();
+      }
+     tagSelected.some(test);
+
+
+     input.addEventListener("input", function() {
+        let saisie = this.value.toLowerCase().trim();
+        tagSelected.forEach((e) => {
+        console.log(e);
+            console.log(saisie);
+            recipies.forEach((card) => {
+                //console.log(`recette-${card.id}`);
+                var carteFiltre = document.getElementById(`recette-${card.id}`);
+                //carteFiltre.style.display = (card.name.toLowerCase().trim().includes(saisie)) ? "block" : "none";//fonction ternaire:if, display block, else, display none
+                if (card.name.toLowerCase().trim().includes(saisie)) {
+                    carteFiltre.style.display = "block";
+                }
+                else if(`${buildDescription(card.ingredients)}`.toLowerCase().trim().includes(saisie)) {
+                    carteFiltre.style.display = "block";
+                }
+                else if(card.description.toLowerCase().trim().includes(saisie)) {
+                    carteFiltre.style.display = "block";
+                }
+                else {
+                    carteFiltre.style.display = "none";
+                    //console.log("« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc");
+                }
+            });
+        })
+        
+    })
+
+    async function globalFilter () {
+        const recipies = await getRecipies();
+        //console.log(filtreCards);
+        //console.log(document.getElementById("filtre-cards").value.toLowerCase().trim());
+        const input = document.getElementById("filtre-cards");
+        //const tagSelect = tagSelected;
+        //var saisie = "";
+        // input.addEventListener("input", function() {
+        //     saisie = this.value.toLowerCase().trim();
+        //     console.log(saisie);
+        // })
+        console.log(input);
+        //A CORRIGER
+        console.log(tagSelected);
+    
+        console.log("totototototo");
+        tagSelected.forEach((e) => {
+            input.addEventListener("input", function() {
+                let saisie = this.value.toLowerCase().trim();
+                console.log(saisie);
+                recipies.forEach((card) => {
+                    //console.log(`recette-${card.id}`);
+                    var carteFiltre = document.getElementById(`recette-${card.id}`);
+                    //carteFiltre.style.display = (card.name.toLowerCase().trim().includes(saisie)) ? "block" : "none";//fonction ternaire:if, display block, else, display none
+                    if (card.name.toLowerCase().trim().includes(saisie)) {
+                        carteFiltre.style.display = "block";
+                    }
+                    else if(`${buildDescription(card.ingredients)}`.toLowerCase().trim().includes(saisie)) {
+                        carteFiltre.style.display = "block";
+                    }
+                    else if(card.description.toLowerCase().trim().includes(saisie)) {
+                        carteFiltre.style.display = "block";
+                    }
+                    else {
+                        carteFiltre.style.display = "none";
+                        //console.log("« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc");
+                    }
+                });
+            })
+            
+        })
+    
+        // filtreCards.addEventListener("input", function() {
+        //     let saisie = this.value.toLowerCase().trim();
+        // })
+        console.log(tagSelected);
+        // if(tagSelected == saisie) {
+        //     cardFilter();
+        //     console.log("LEBOYER");
+        // }
+        // else if(filtreCards == saisie){
+        //     console.log("MASSAAAA");
+        // }
+        //tagSelected;
+        //saisie;
+        //cardFilter();
+    }
+    globalFilter();
+    console.log(globalFilter);
+
+    input.addEventListener("input", e => {
+        const saisie = e.target.value.toLowerCase();
+        const tagSelect = tagSelected.filter(tags => tags.toLowerCase().saisie);
+        console.log(siaise);
+    })
