@@ -52,13 +52,11 @@ async function monSelect () {
 monSelect();
 
 window.onload = () => {
+    mesRecettes();
     //Récupération du select
     const selectElementIngredients = document.getElementById("select-ingredients");
     const selectElementAppareil = document.getElementById("select-appareil");
     const selectElementUstensiles = document.getElementById("select-ustensiles");
-
-    //Récupération 1ère div "select-filter"
-    const selectDiv = document.querySelector(".select-filter__item"); 
 
     //CREATION DE BLOCS POUR LES ELEMENTS SELECTIONNES
     const selectedItems = document.createElement("div");
@@ -90,7 +88,9 @@ window.onload = () => {
     const iconeUstensile = document.createElement("i")
     iconeUstensile.classList.add("far", "fa-times-circle");
     selectFilterUstensile.appendChild(iconeUstensile);
-    
+
+    //Récupération 1ère div "select-filter"
+    const selectDiv = document.querySelector(".select-filter__item"); 
     selectDiv.appendChild(selectedItems);
 
     //CREATION DU NOUVEAU SELECT
@@ -122,7 +122,6 @@ window.onload = () => {
     const selectIngredients = document.createElement("div");
     selectIngredients.classList.add("select-filter__donnees", "select-hide", "select-filter__ingredient");
     selectIngredients.setAttribute("id", "ingredients");
-    //console.log(selectIngredients)
 
     const searchIngredient = document.createElement("div");
     searchIngredient.classList.add("select-filter__donnees--label");
@@ -130,13 +129,9 @@ window.onload = () => {
     searchIngredient.textContent= "Rechercher un ingredient";
 
     selectIngredients.appendChild(searchIngredient);
-    //customSelectItems.appendChild(selectIngredients);
-    // selectDiv.appendChild(customSelectItems);
-    // console.log(selectIngredients);
 
     newSelectItemsIngredients.appendChild(newSelectIngredient);
     newSelectItemsIngredients.appendChild(selectIngredients);
-    //console.log(newSelect);
 
     //CREATION DU NOUVEAU SELECT APPAREIL ET CREATION DU BLOC APPAREIL DANS LE DOM
     const newSelectAppareil = document.createElement("div");
@@ -195,9 +190,12 @@ window.onload = () => {
         newOption.addEventListener("click", (event) => {
             //selectIngredients.classList.remove("select-hide");
             const filtreSelectionneIngredient = event.target.getAttribute("data-filter");
-            tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
-            
-            console.log(tagSelected);
+            console.log(filtreSelectionneIngredient);
+            if(!tagSelected.some(element => element.nom === filtreSelectionneIngredient) ) {
+                tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
+            }
+           console.log(tagSelected.some(item => item.nom === filtreSelectionneIngredient));
+            //tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
            
             selectElementIngredients.selectedIndex = option.index;
             //on simule un clic sur newSelect
@@ -205,7 +203,6 @@ window.onload = () => {
             newSelectIngredient.classList.toggle("select-hide");
             
             tagsItems();
-            //console.log(tagsItems);
         })
 
         //Ajout de l'option dans le menu Deroulant
@@ -284,7 +281,10 @@ window.onload = () => {
         newOption.addEventListener("click", (event) => {
 
             const filtreSelectionneAppareil = event.target.getAttribute("data-filter");
-            tagSelected.push({couleur:"vert", nom:filtreSelectionneAppareil});
+
+            if(!tagSelected.some(element => element.nom === filtreSelectionneAppareil) ) {
+                tagSelected.push({couleur:"vert", nom:filtreSelectionneAppareil});
+            }
 
             selectElementAppareil.selectedIndex = option.index;
     
@@ -301,7 +301,6 @@ window.onload = () => {
         menuDeroulantAppareil.appendChild(newOption);
         //console.log(newOption); 
     }
-    //selectDiv.appendChild(menuDeroulant);
     selectAppareil.appendChild(menuDeroulantAppareil);
 
     newSelectAppareil.addEventListener("click", function(e){
@@ -324,15 +323,12 @@ window.onload = () => {
        
     
     searchAppareil.addEventListener("click", function () {
-
         this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
         this.setAttribute("contenteditable", "false");
-        //this.innerHTML = filtreSelectionneIngredient;
         }
         else {
             this.setAttribute("contenteditable", "true");
-            //this.innerHTML = "Ingrédients";
             //on donne le focus à notre champ
             this.focus();
         }
@@ -374,10 +370,12 @@ window.onload = () => {
         newOption.addEventListener("click", (event) => {
 
             const filtreSelectionneUstensile = event.target.getAttribute("data-filter");
-            tagSelected.push({couleur:"orange", nom:filtreSelectionneUstensile});
 
-            selectElementUstensiles.selectedIndex = option.index;
+            if(!tagSelected.some(element => element.nom === filtreSelectionneUstensile) ) {
+                tagSelected.push({couleur:"orange", nom:filtreSelectionneUstensile});
+            }
             
+            selectElementUstensiles.selectedIndex = option.index;
             tagsItems();
 
             //on simule un clic sur newSelect
@@ -414,12 +412,11 @@ window.onload = () => {
         //this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
-            //this.innerHTML = filtreSelectionneIngredient;
         }
         else {
             this.innerHTML = "";
             this.setAttribute("contenteditable", "true");
-            //this.innerHTML = "Ingrédients";
+
             //on donne le focus au champ
             this.focus();
         }
@@ -458,8 +455,6 @@ window.onload = () => {
             closeButton.setAttribute("name", element.nom);
             tag.appendChild(closeButton);
 
-           
-
             if(element.couleur === 'bleu') {
                 tag.style.backgroundColor = "#3282F7"; 
             }
@@ -468,29 +463,26 @@ window.onload = () => {
             }
             else if (element.couleur === 'orange') {
                 tag.style.backgroundColor = "#ED6454";
-            }
-            //tagSelected = tagSelected.some(e => e.nom !== tag.nom);
-            //tagSelected = tagSelected.some(tag => tag !== tag.nom);
-            console.log(tagSelected);
+            }            
 
             closeButton.addEventListener("click", buttonClose);
             function buttonClose (e) {
                 const name = e.target.getAttribute("name");
                 tagSelected = tagSelected.filter(tag => tag.nom !== name);
-                console.log(tagSelected);
                 tagsItems();
             }
             tagConteneur.appendChild(tag);
         })
+        globalFilter();
     };
-   //tagsItems()
 }
 
-async function mesRecettes () {
+async function mesRecettes (recipiesSelected) {
     const section = document.querySelector('.recettes');
-    const recipies = await getRecipies();
-    recipies.forEach(function(recettes) {
-        
+    section.innerHTML = "";
+    const recipiesToDisplay = recipiesSelected === undefined? await getRecipies() : recipiesSelected;
+    
+    recipiesToDisplay.forEach(function(recettes) {
          var myHtml = `
          <div class="recettes-bloc" id="recette-${recettes.id}">
             <a href="recettes.html?id=${recettes.id}">
@@ -507,12 +499,10 @@ async function mesRecettes () {
                 </div>
             </a>    
             </div>
-            <div id="error" class="select-hide">« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc"</div>
          `
          section.innerHTML += myHtml;  
     })
 }
-mesRecettes();
 
 function buildDescription (ingredients) {
     return ingredients.map( ingredient => {
@@ -529,71 +519,85 @@ function buildDescription (ingredients) {
     }
 ).join('')}
 
-
 //Fonction pour filtre des cards
 const filtreCards = document.getElementById("filtre-cards");//input
-//var saisie = "";
+
 async function cardFilter () {
     const recipies = await getRecipies();
     filtreCards.addEventListener("input", function() {
         let saisie = this.value.toLowerCase().trim();//trim pour supprimer les espaces dans la saisie
-    
-        globalFilter();
         
+        globalFilter();    
     });
 }
 cardFilter();
 
-
+//Fonction globale qui gère le filtre de recettes et de tags
 async function globalFilter () {
     const recipies = await getRecipies();
-    //console.log(document.getElementById("filtre-cards").value.toLowerCase().trim());
     const input = document.getElementById("filtre-cards");
-    console.log(input);
     var saisie = input.value.toLowerCase();
-    console.log(saisie);
-    // const recettes = recipies.filter(recipie => recipie.name.toLowerCase().includes(saisie));
-    
     const recipiesSelected = [];
-    tagSelected.forEach(tag => {
-        if(tag.couleur === "vert") {
-            recipies.map(recipie => {
-                if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
-                    recipiesSelected.push(recipie);
-                }
-            })
-        }
-        else if(tag.couleur === "orange") {
-            recipies.map(recipie => {
-                if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
-                    recipiesSelected.push(recipie);
-                }
-            })
-        }
-        else if(tag.couleur === "bleu") {
-            recipies.map(recipie => {
-                if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
-                    recipiesSelected.push(recipie);
-                }
-            })
-        }
-    }) 
-
     recipies.forEach((recipie) => {
-        if (recipie.name.toLowerCase().trim().includes(saisie)) {
+        if (recipie.name.toLowerCase().includes(saisie)) {
             recipiesSelected.push(recipie);
         }
-        else if(buildDescription(recipie.ingredients).toLowerCase().trim().includes(saisie)) {
+        else if(buildDescription(recipie.ingredients).toLowerCase().includes(saisie)) {
             recipiesSelected.push(recipie);
         }
-        else if(recipie.description.toLowerCase().trim().includes(saisie)) {
+        else if(recipie.description.toLowerCase().includes(saisie)) {
             recipiesSelected.push(recipie);
         }
     });
-
+    console.log(saisie);
+    console.log(recipiesSelected);
+    let recipiesToDisplay = [];
+    if(tagSelected.length !== 0) {
+        tagSelected.forEach(tag => {
+            if(tag.couleur === "vert") {
+                recipiesSelected.map(recipie => {
+                    if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
+                        recipiesToDisplay.push(recipie);
+                    }
+                })
+            }
+            else if(tag.couleur === "orange") {
+                recipiesSelected.map(recipie => {
+                    if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
+                        recipiesToDisplay.push(recipie);
+                    }
+                })
+            }
+            else if(tag.couleur === "bleu") {
+                recipiesSelected.map(recipie => {
+                    if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
+                        recipiesToDisplay.push(recipie);
+                    }
+                })
+            }
+        }) 
+    }
+    else {
+        recipiesToDisplay = recipiesSelected;
+    }
+    // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
+    if(recipiesSelected.length === 0 ) {
+        console.log("LEBOYER");
+        // const saisieInexistante = document.createElement("div");
+        // saisieInexistante.classList.add("erreur");
+        // saisieInexistante.innerHTML = "Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
+        // section.appendChild(saisieInexistante);
+        // const saisieInexistante = `<div class="erreur">"Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc"</div>`
+        // section.innerHTML += saisieInexistante;
+        // console.log(section);
+        // console.log(saisieInexistante);
+    }
     console.log(recipiesSelected);
     
-    console.log(tagSelected);
+
+    mesRecettes(recipiesToDisplay);
+    console.log(recipiesSelected);
+
 }
 
 
