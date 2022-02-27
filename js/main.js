@@ -70,8 +70,7 @@ window.onload = () => {
     const iconeIngredient = document.createElement("i");
     iconeIngredient.classList.add("far", "fa-times-circle");
     selectFilterIngredient.appendChild(iconeIngredient);
-    //selectDiv.appendChild(selectedItems);
-
+    
     //Création div et icone Appareil
     const selectFilterAppareil = document.createElement("div");
     selectFilterAppareil.classList.add("select-filter-selected", "select-hide", "appareil-selected");
@@ -79,7 +78,6 @@ window.onload = () => {
     const iconeAppareil = document.createElement("i");
     iconeAppareil.classList.add("far", "fa-times-circle");
     selectFilterAppareil.appendChild(iconeAppareil);
-    //selectDiv.appendChild(selectedItems);
 
     //Création div et icone Ustensiles
     const selectFilterUstensile = document.createElement("div");
@@ -155,8 +153,7 @@ window.onload = () => {
     const newSelectUstensiles = document.createElement("div");
     newSelectUstensiles.classList.add("new-select", "new-select-ustensiles");
     newSelectUstensiles.textContent = "Ustensiles";
-    //newSelectItems.appendChild(newSelectUstensiles);
-
+    
     const selectUstensile = document.createElement("div");
     selectUstensile.classList.add("select-filter__donnees", "select-hide");
     selectUstensile.setAttribute("id", "ustensiles");
@@ -165,7 +162,6 @@ window.onload = () => {
     searchUstensile.classList.add("select-filter__donnees--label");
     searchUstensile.textContent= "Rechercher un ustensile";
     
-
     selectUstensile.appendChild(searchUstensile);
 
     newSelectItemsUstensiles.appendChild(newSelectUstensiles);
@@ -188,7 +184,6 @@ window.onload = () => {
 
         //ajout de l'écouteur d'événement "clic" sur l'option
         newOption.addEventListener("click", (event) => {
-            //selectIngredients.classList.remove("select-hide");
             const filtreSelectionneIngredient = event.target.getAttribute("data-filter");
             console.log(filtreSelectionneIngredient);
             if(!tagSelected.some(element => element.nom === filtreSelectionneIngredient) ) {
@@ -201,8 +196,7 @@ window.onload = () => {
             //on simule un clic sur newSelect
             newSelectIngredient.click();//pour fermer le menu
             newSelectIngredient.classList.toggle("select-hide");
-            
-            tagsItems();
+            tagsItems();//appel de la fonction de traitement des tags
         })
 
         //Ajout de l'option dans le menu Deroulant
@@ -213,16 +207,10 @@ window.onload = () => {
 
     newSelectIngredient.addEventListener("click", function(e) {
         e.stopPropagation();
-        //console.log(this)
-        //selectIngredients.classList.remove("select-hide");
+
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
         this.classList.add("select-hide");
-        //menuDeroulantIngredients.classList.toggle("select-hide");
-
-        //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        //this.classList.toggle("active");//.new-select.active::after{border-color, top}
-        //this.classList.toggle("select-hide");
 
         //Fermeture d'une dropdown à l'ouverture d'une autre
         selectAppareil.classList.add("select-hide");
@@ -239,9 +227,7 @@ window.onload = () => {
         }
         else {
             this.setAttribute("contenteditable", "true");
-            //this.innerHTML = "Ingrédients";
-            //on donne le focus à notre champ
-            this.focus();
+            this.focus();//on donne le focus à notre champ
         }
     })
 
@@ -291,15 +277,12 @@ window.onload = () => {
             //on simule un clic sur newSelect
             newSelectAppareil.click();//pour fermer le menu
             newSelectAppareil.classList.toggle("select-hide");
-            //newSelectIngredient.classList.toggle("select-hide");
-            //newSelectIngredient.classList.toggle("active")
             
             tagsItems();
         })
 
         //Ajout de l'option dans le menu Deroulant
         menuDeroulantAppareil.appendChild(newOption);
-        //console.log(newOption); 
     }
     selectAppareil.appendChild(menuDeroulantAppareil);
 
@@ -307,7 +290,6 @@ window.onload = () => {
         e.stopPropagation();
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
-        //selectAppareil.classList.remove("select-hide");
         this.classList.add("select-hide");
         
         //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
@@ -321,7 +303,6 @@ window.onload = () => {
         newSelectUstensiles.classList.remove("select-hide");
     })
        
-    
     searchAppareil.addEventListener("click", function () {
         this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
@@ -339,7 +320,6 @@ window.onload = () => {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
         console.log(saisie);
-
         //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantAppareil.children) {
             //on vérifie si la saisie existe dans la chaîne
@@ -391,7 +371,6 @@ window.onload = () => {
 
     newSelectUstensiles.addEventListener("click", function(e) {
         e.stopPropagation();
-        //console.log(this)
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
         //selectUstensile.classList.remove("select-hide");
@@ -409,16 +388,13 @@ window.onload = () => {
     })
 
     searchUstensile.addEventListener("click", function () {
-        //this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
         else {
             this.innerHTML = "";
             this.setAttribute("contenteditable", "true");
-
-            //on donne le focus au champ
-            this.focus();
+            this.focus();//on donne le focus au champ
         }
     })
 
@@ -441,7 +417,7 @@ window.onload = () => {
         }
     })
 
-    
+    //Fonction de gestion de tags(affichage, fermeture et filtre)
     function tagsItems () {
         const tagConteneur = document.getElementById("items-selected");
         tagConteneur.innerHTML = "";   
@@ -506,7 +482,7 @@ async function mesRecettes (recipiesSelected) {
 
 function buildDescription (ingredients) {
     return ingredients.map( ingredient => {
-        //console.log(ingredient.ingredient)
+        
         if (ingredient.unit !== undefined) {
             return `<p class="recette__ingredients--p"><span class="recette__ingredients--p--span">${ingredient.ingredient}</span>: <span>${ingredient.quantity} ${ingredient.unit}</span></p>`;   
         }
@@ -580,24 +556,20 @@ async function globalFilter () {
     else {
         recipiesToDisplay = recipiesSelected;
     }
+    
     // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
     if(recipiesSelected.length === 0 ) {
-        console.log("LEBOYER");
-        // const saisieInexistante = document.createElement("div");
-        // saisieInexistante.classList.add("erreur");
-        // saisieInexistante.innerHTML = "Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
-        // section.appendChild(saisieInexistante);
-        // const saisieInexistante = `<div class="erreur">"Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc"</div>`
-        // section.innerHTML += saisieInexistante;
-        // console.log(section);
-        // console.log(saisieInexistante);
+        document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
+    }
+    else {
+        mesRecettes(recipiesSelected);
+        document.getElementById('erreur').innerHTML = "";
     }
     console.log(recipiesSelected);
     
 
     mesRecettes(recipiesToDisplay);
     console.log(recipiesSelected);
-
 }
 
 
