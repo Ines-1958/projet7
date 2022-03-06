@@ -123,8 +123,9 @@ body ul {
             border-radius: 5px;
             padding: 5px 10px;
             font-size: 15px;
-            width: auto;
-
+            position: absolute;
+            left: 0;
+            top: 0;
             ul {
                 display: flex;
                 flex-direction: column;
@@ -219,9 +220,8 @@ body ul {
             margin-left: 93px;
         }
         &--p {
-            font-family: 'Lato', sans-serif;
             font-family: 'Roboto', sans-serif;
-            font-size: 13px;
+            font-size: 12px;
         }
     }
 }
@@ -239,6 +239,7 @@ body ul {
         left: 7rem;
     }
 }
+
 .new-select {
     width: 135px;
     margin-bottom: 10px;
@@ -289,4 +290,5 @@ select {
 
 #erreur {
    text-align: center;
+   font-weight: bold;
 }

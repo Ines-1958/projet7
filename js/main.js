@@ -6,10 +6,7 @@ let tagSelected = [];
 async function  getRecipies () {
     const response = await fetch('/assets/recipies.json')
     const json = await response.json();
-    //console.log(json)
-    // obj = JSON.parse(json.recipies);
-    // console.log(obj)
-   return json.recipies;
+    return json.recipies;
 }
 
 //Fonction pour la création du select avec les données json
@@ -25,7 +22,7 @@ async function monSelect () {
                     `;
                     const ingredients = [].concat.apply([], recipies.map((recipie) => recipie.ingredients));
                     const uniqueIngredients = ingredients.filter((value, index, self) => index === self.findIndex((t) => t.ingredient.toLowerCase() === value.ingredient.toLowerCase()))
-                    console.log(uniqueIngredients)
+
                     uniqueIngredients.forEach(i => monHtml +=  `<option value="${i.ingredient}">${i.ingredient}</option>`) 
                      monHtml += ` </select>
                 </div>
@@ -41,7 +38,7 @@ async function monSelect () {
                     <select  name="" id="select-ustensiles" class="ustensiles">
                         <!--<option value="">Ustensiles</option>-->` 
                         const ustensiles = [...new Set(recipies.map((recipie) => recipie.ustensils).flat())];//flat pour demultiplier le tableau 
-                        console.log(ustensiles);
+                        
                         ustensiles.forEach(e => monHtml += `<option value="${e}">${e}</option>`);
                         monHtml += ` 
                     </select>
@@ -114,9 +111,6 @@ window.onload = () => {
     newSelectIngredient.textContent = "Ingrédients";
     newSelectIngredient.setAttribute("id", "new-ingredient")
 
-    //Ajout de l'option actuellement choisie dans le select
-    //newSelect.innerHTML = selectFilterIngredient.options[selectFilterIngredient.selectedIndex].innerHTML;
-
     const selectIngredients = document.createElement("div");
     selectIngredients.classList.add("select-filter__donnees", "select-hide", "select-filter__ingredient");
     selectIngredients.setAttribute("id", "ingredients");
@@ -185,13 +179,11 @@ window.onload = () => {
         //ajout de l'écouteur d'événement "clic" sur l'option
         newOption.addEventListener("click", (event) => {
             const filtreSelectionneIngredient = event.target.getAttribute("data-filter");
-            console.log(filtreSelectionneIngredient);
+            //si le tag selectionné n'existe pas dans le tableau, l'ajouter(s'il existe déjà, on ne l'ajoute plus)
             if(!tagSelected.some(element => element.nom === filtreSelectionneIngredient) ) {
                 tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
             }
-           console.log(tagSelected.some(item => item.nom === filtreSelectionneIngredient));
-            //tagSelected.push({couleur:"bleu", nom:filtreSelectionneIngredient})
-           
+
             selectElementIngredients.selectedIndex = option.index;
             //on simule un clic sur newSelect
             newSelectIngredient.click();//pour fermer le menu
@@ -202,7 +194,6 @@ window.onload = () => {
         //Ajout de l'option dans le menu Deroulant
         menuDeroulantIngredients.appendChild(newOption);    
     }
-    //selectDiv.appendChild(menuDeroulant);
     selectIngredients.appendChild(menuDeroulantIngredients);
 
     newSelectIngredient.addEventListener("click", function(e) {
@@ -235,9 +226,7 @@ window.onload = () => {
     searchIngredient.addEventListener("input", function(e) {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
-        console.log(saisie);
-        console.log(e);
-
+        
         //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantIngredients.children) {
             //on vérifie si la saisie existe dans la chaîne
@@ -291,9 +280,6 @@ window.onload = () => {
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
         this.classList.add("select-hide");
-        
-        //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        //this.classList.toggle("active");
 
         //Fermeture d'une dropdown à l'ouverture d'une autre
         selectIngredients.classList.add("select-hide");
@@ -319,7 +305,7 @@ window.onload = () => {
     searchAppareil.addEventListener("input", function(e) {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
-        console.log(saisie);
+        
         //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantAppareil.children) {
             //on vérifie si la saisie existe dans la chaîne
@@ -348,13 +334,11 @@ window.onload = () => {
         newOption.setAttribute("data-filter", option.innerHTML);
 
         newOption.addEventListener("click", (event) => {
-
             const filtreSelectionneUstensile = event.target.getAttribute("data-filter");
 
             if(!tagSelected.some(element => element.nom === filtreSelectionneUstensile) ) {
                 tagSelected.push({couleur:"orange", nom:filtreSelectionneUstensile});
             }
-            
             selectElementUstensiles.selectedIndex = option.index;
             tagsItems();
 
@@ -373,11 +357,7 @@ window.onload = () => {
         e.stopPropagation();
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
-        //selectUstensile.classList.remove("select-hide");
         this.classList.add("select-hide");
-        
-        //ajout de la classe active à newFilterSelected pour changer le sens de la flèche
-        //this.classList.toggle("active");
 
         //Fermeture d'une dropdown à l'ouverture d'une autre
         selectIngredients.classList.add("select-hide");
@@ -402,8 +382,6 @@ window.onload = () => {
     searchUstensile.addEventListener("input", function(e) {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
-        console.log(saisie);
-        console.log(e);
 
         //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantUstensiles.children) {
@@ -525,8 +503,7 @@ async function globalFilter () {
             recipiesSelected.push(recipie);
         }
     });
-    console.log(saisie);
-    console.log(recipiesSelected);
+    
     let recipiesToDisplay = [];
     if(tagSelected.length !== 0) {
         tagSelected.forEach(tag => {
@@ -556,7 +533,7 @@ async function globalFilter () {
     else {
         recipiesToDisplay = recipiesSelected;
     }
-    
+
     // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
     if(recipiesSelected.length === 0 ) {
         document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
@@ -565,11 +542,8 @@ async function globalFilter () {
         mesRecettes(recipiesSelected);
         document.getElementById('erreur').innerHTML = "";
     }
-    console.log(recipiesSelected);
     
-
     mesRecettes(recipiesToDisplay);
-    console.log(recipiesSelected);
 }
 
 

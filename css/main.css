@@ -133,7 +133,9 @@ body ul li {
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 15px;
-  width: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .select .select-filter__donnees ul {
@@ -233,9 +235,8 @@ body ul li {
 }
 
 .recette__description--p {
-  font-family: 'Lato', sans-serif;
   font-family: 'Roboto', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .new-select-items {
@@ -307,4 +308,5 @@ select {
 
 #erreur {
   text-align: center;
+  font-weight: bold;
 }
