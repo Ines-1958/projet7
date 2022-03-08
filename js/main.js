@@ -4,7 +4,7 @@ const ustensileSelected = [];
 let tagSelected = [];
 
 async function  getRecipies () {
-    const response = await fetch('/assets/recipies.json')
+    const response = await fetch('../assets/recipies.json')
     const json = await response.json();
     return json.recipies;
 }
