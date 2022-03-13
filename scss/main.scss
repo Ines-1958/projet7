@@ -123,9 +123,9 @@ body ul {
             border-radius: 5px;
             padding: 5px 10px;
             font-size: 15px;
-            position: absolute;
-            left: 0;
-            top: 0;
+            // position: absolute;
+            // left: 0;
+            // top: 0;
             ul {
                 display: flex;
                 flex-direction: column;
@@ -291,4 +291,9 @@ select {
 #erreur {
    text-align: center;
    font-weight: bold;
+}
+
+.custom-select-items {
+    position: inherit;
+    height: 60px;
 }

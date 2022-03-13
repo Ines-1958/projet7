@@ -212,13 +212,13 @@ window.onload = () => {
     })
 
     searchIngredient.addEventListener("click", function () {
-        this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
         else {
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus à notre champ
+            this.innerHTML = "";
         }
     })
 
@@ -227,16 +227,20 @@ window.onload = () => {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
         
-        //on parcourt tous les enfants de notre menu(newMenu)
-        for(let option of menuDeroulantIngredients.children) {
-            //on vérifie si la saisie existe dans la chaîne
-            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
-                option.style.display = "block";
-            }
-            else {
-                option.style.display = "none";
+        //On déclenche la recherche à partir de 3 caractères
+        if(saisie.length > 2) {
+            //on parcourt tous les enfants de notre menu(newMenu)
+            for(let option of menuDeroulantIngredients.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                }
             }
         }
+   
     })
 
     //Création menu déroulant appareil et ajout de classe et id
@@ -290,14 +294,13 @@ window.onload = () => {
     })
        
     searchAppareil.addEventListener("click", function () {
-        this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
-        this.setAttribute("contenteditable", "false");
+            this.setAttribute("contenteditable", "false");
         }
         else {
             this.setAttribute("contenteditable", "true");
-            //on donne le focus à notre champ
-            this.focus();
+            this.focus();//on donne le focus à notre champ
+            this.innerHTML = "";
         }
     })
 
@@ -306,7 +309,8 @@ window.onload = () => {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
         
-        //on parcourt tous les enfants de notre menu(newMenu)
+        if(saisie.length > 2) {
+            //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantAppareil.children) {
             //on vérifie si la saisie existe dans la chaîne
             if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
@@ -315,6 +319,7 @@ window.onload = () => {
             else {
                 option.style.display = "none";
             }
+        }
         }
     })
 
@@ -358,6 +363,8 @@ window.onload = () => {
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
         this.classList.add("select-hide");
+        // const test = document.querySelector(".select");
+        // test.style.marginTop = '-350px';
 
         //Fermeture d'une dropdown à l'ouverture d'une autre
         selectIngredients.classList.add("select-hide");
@@ -372,9 +379,9 @@ window.onload = () => {
             this.setAttribute("contenteditable", "false");
         }
         else {
-            this.innerHTML = "";
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus au champ
+            this.innerHTML = "";
         }
     })
 
@@ -383,14 +390,16 @@ window.onload = () => {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
 
-        //on parcourt tous les enfants de notre menu(newMenu)
-        for(let option of menuDeroulantUstensiles.children) {
-            //on vérifie si la saisie existe dans la chaîne
-            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
-                option.style.display = "block";
-            }
-            else {
-                option.style.display = "none";
+        if(saisie.length > 2) {
+            //on parcourt tous les enfants de notre menu(newMenu)
+            for(let option of menuDeroulantUstensiles.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                }
             }
         }
     })
@@ -492,17 +501,19 @@ async function globalFilter () {
     const input = document.getElementById("filtre-cards");
     var saisie = input.value.toLowerCase();
     const recipiesSelected = [];
-    recipies.forEach((recipie) => {
-        if (recipie.name.toLowerCase().includes(saisie)) {
-            recipiesSelected.push(recipie);
-        }
-        else if(buildDescription(recipie.ingredients).toLowerCase().includes(saisie)) {
-            recipiesSelected.push(recipie);
-        }
-        else if(recipie.description.toLowerCase().includes(saisie)) {
-            recipiesSelected.push(recipie);
-        }
-    });
+    if(saisie.length > 2) {
+        console.log(saisie.length);
+        recipies.forEach((recipie) => {
+                if (recipie.name.toLowerCase().includes(saisie)) {
+                    recipiesSelected.push(recipie);    
+                }
+                else if(buildDescription(recipie.ingredients).toLowerCase().includes(saisie)) {
+                    recipiesSelected.push(recipie);
+                }
+                else if(recipie.description.toLowerCase().includes(saisie)) {
+                    recipiesSelected.push(recipie);
+                }
+        })
     
     let recipiesToDisplay = [];
     if(tagSelected.length !== 0) {
@@ -539,11 +550,16 @@ async function globalFilter () {
         document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
     }
     else {
+        console.log(recipiesSelected);
         mesRecettes(recipiesSelected);
         document.getElementById('erreur').innerHTML = "";
     }
     
     mesRecettes(recipiesToDisplay);
+    }
+    else {
+        mesRecettes(recipies);
+    }
 }
 
 
