@@ -260,6 +260,8 @@ body ul {
 .custom-select-items {
     display: flex;
     flex-direction: row;
+    position: inherit;
+    height: 60px;
 }
 
 select {
@@ -270,9 +272,6 @@ select {
     display: none;
 }
 
-.custom-select-items {
-    display: flex;
-}
 .active {
     display: block;
 }
@@ -293,7 +292,3 @@ select {
    font-weight: bold;
 }
 
-.custom-select-items {
-    position: inherit;
-    height: 60px;
-}

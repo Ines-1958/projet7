@@ -216,9 +216,10 @@ window.onload = () => {
             this.setAttribute("contenteditable", "false");
         }
         else {
+            this.innerHTML = "";
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus à notre champ
-            this.innerHTML = "";
+            
         }
     })
 
@@ -502,17 +503,16 @@ async function globalFilter () {
     var saisie = input.value.toLowerCase();
     const recipiesSelected = [];
     if(saisie.length > 2) {
-        console.log(saisie.length);
         recipies.forEach((recipie) => {
-                if (recipie.name.toLowerCase().includes(saisie)) {
-                    recipiesSelected.push(recipie);    
-                }
-                else if(buildDescription(recipie.ingredients).toLowerCase().includes(saisie)) {
-                    recipiesSelected.push(recipie);
-                }
-                else if(recipie.description.toLowerCase().includes(saisie)) {
-                    recipiesSelected.push(recipie);
-                }
+            if (recipie.name.toLowerCase().includes(saisie)) {
+                recipiesSelected.push(recipie);    
+            }
+            else if(buildDescription(recipie.ingredients).toLowerCase().includes(saisie)) {
+                recipiesSelected.push(recipie);
+            }
+            else if(recipie.description.toLowerCase().includes(saisie)) {
+                recipiesSelected.push(recipie);
+            }
         })
     
     let recipiesToDisplay = [];
