@@ -60,29 +60,20 @@ window.onload = () => {
     selectedItems.classList.add("selected-items");
     selectedItems.setAttribute("id", "items-selected");
 
-    //Création div et icone ingredient
+    //Création div et ingredient
     const selectFilterIngredient = document.createElement("div");
     selectFilterIngredient.classList.add("select-filter-selected", "select-hide", "ingredient-selected");
     selectedItems.appendChild(selectFilterIngredient);
-    const iconeIngredient = document.createElement("i");
-    iconeIngredient.classList.add("far", "fa-times-circle");
-    selectFilterIngredient.appendChild(iconeIngredient);
     
-    //Création div et icone Appareil
+    //Création div Appareil
     const selectFilterAppareil = document.createElement("div");
     selectFilterAppareil.classList.add("select-filter-selected", "select-hide", "appareil-selected");
     selectedItems.appendChild(selectFilterAppareil);
-    const iconeAppareil = document.createElement("i");
-    iconeAppareil.classList.add("far", "fa-times-circle");
-    selectFilterAppareil.appendChild(iconeAppareil);
-
-    //Création div et icone Ustensiles
+    
+    //Création div Ustensiles
     const selectFilterUstensile = document.createElement("div");
     selectFilterUstensile.classList.add("select-filter-selected", "select-hide","ustensile-selected");
     selectedItems.appendChild(selectFilterUstensile);
-    const iconeUstensile = document.createElement("i")
-    iconeUstensile.classList.add("far", "fa-times-circle");
-    selectFilterUstensile.appendChild(iconeUstensile);
 
     //Récupération 1ère div "select-filter"
     const selectDiv = document.querySelector(".select-filter__item"); 
@@ -118,7 +109,7 @@ window.onload = () => {
     const searchIngredient = document.createElement("div");
     searchIngredient.classList.add("select-filter__donnees--label");
     searchIngredient.setAttribute("id", "label-ingredient")
-    searchIngredient.textContent= "Rechercher un ingredient";
+    searchIngredient.textContent= "Rechercher un ingrédient";
 
     selectIngredients.appendChild(searchIngredient);
 
@@ -212,16 +203,14 @@ window.onload = () => {
     })
 
     searchIngredient.addEventListener("click", function () {
-        //this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
         else {
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus à notre champ    
+            this.innerHTML = "";
         }
-        //menuDeroulantIngredients.innerHTML = "";
-        //tagsItems();
     })
 
     //mise en place du filtre de contenu sur l'événement  input
@@ -242,10 +231,8 @@ window.onload = () => {
                 }
             }
         }
-        console.log(saisie);
-        console.log(saisie.length);
+        
         if(saisie.length === 0) {
-            //tagsItems();
             for(let option of menuDeroulantIngredients.children) {
                 //on vérifie si la saisie existe dans la chaîne
                 if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
@@ -337,6 +324,18 @@ window.onload = () => {
                 }
             }
         }
+        if(saisie.length === 0) {
+            for(let option of menuDeroulantAppareil.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                    tagsItems();
+                }
+            }
+        }
     })
 
     //Création menu déroulant ustensiles et ajout de classe et id
@@ -379,9 +378,7 @@ window.onload = () => {
         //retrait du select-hide du menu
         this.nextSibling.classList.toggle("select-hide");
         this.classList.add("select-hide");
-        // const test = document.querySelector(".select");
-        // test.style.marginTop = '-350px';
-
+        
         //Fermeture d'une dropdown à l'ouverture d'une autre
         selectIngredients.classList.add("select-hide");
         newSelectIngredient.classList.remove("select-hide");
@@ -394,14 +391,6 @@ window.onload = () => {
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
-        // else {
-        //     this.setAttribute("contenteditable", "true");
-        //     this.focus();//on donne le focus au champ
-        //     this.innerHTML = "";
-        // }
-        // else if (this.getAttribute("contenteditable") == "true") {
-        //     menuDeroulantIngredients.style.display = "block";
-        // }
         else {
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus au champ
@@ -426,9 +415,18 @@ window.onload = () => {
                 }
             }
         }
-        // else {
-        //     menuDeroulantIngredients.style.display = "block";
-        // }
+        if(saisie.length === 0) {
+            for(let option of menuDeroulantUstensiles.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                    tagsItems();
+                }
+            }
+        }
     })
 
     //Fonction de gestion de tags(affichage, fermeture et filtre)
@@ -528,7 +526,7 @@ async function globalFilter () {
     const input = document.getElementById("filtre-cards");
     let saisie = input.value.toLowerCase();
     const recipiesSelected = [];
-    if(saisie.length > 2) {
+    //if(saisie.length > 2) {
         recipies.forEach((recipie) => {
             if (recipie.name.toLowerCase().includes(saisie)) {
                 recipiesSelected.push(recipie);    
@@ -573,20 +571,20 @@ async function globalFilter () {
         }
 
         // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
-        // if(recipiesSelected.length === 0 ) {
-        //     document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
-        // }
-        // else {
-        //     console.log(recipiesSelected);
-        //     mesRecettes(recipiesSelected);
-        //     document.getElementById('erreur').innerHTML = "";
-        // }
+        if(recipiesSelected.length === 0 ) {
+            document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
+        }
+        else {
+            console.log(recipiesSelected);
+            mesRecettes(recipiesSelected);
+            document.getElementById('erreur').innerHTML = "";
+        }
         
         mesRecettes(recipiesToDisplay);
-    }
-    else {
-        mesRecettes(recipies);
-    }
+    // }
+    // else {
+    //     mesRecettes(recipies);
+    // }
 }
 
 
