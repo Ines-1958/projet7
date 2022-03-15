@@ -212,15 +212,16 @@ window.onload = () => {
     })
 
     searchIngredient.addEventListener("click", function () {
+        this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
         else {
-            this.innerHTML = "";
             this.setAttribute("contenteditable", "true");
-            this.focus();//on donne le focus à notre champ
-            
+            this.focus();//on donne le focus à notre champ    
         }
+        //menuDeroulantIngredients.innerHTML = "";
+        //tagsItems();
     })
 
     //mise en place du filtre de contenu sur l'événement  input
@@ -241,7 +242,21 @@ window.onload = () => {
                 }
             }
         }
-   
+        console.log(saisie);
+        console.log(saisie.length);
+        // if(saisie.length === 0) {
+        //     tagsItems();
+        //     for(let option of menuDeroulantIngredients.children) {
+        //         //on vérifie si la saisie existe dans la chaîne
+        //         if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+        //             option.style.display = "block";
+        //         }
+        //         else {
+        //             option.style.display = "none";
+        //             tagsItems();
+        //         }
+        //     }
+        // }
     })
 
     //Création menu déroulant appareil et ajout de classe et id
@@ -312,15 +327,15 @@ window.onload = () => {
         
         if(saisie.length > 2) {
             //on parcourt tous les enfants de notre menu(newMenu)
-        for(let option of menuDeroulantAppareil.children) {
-            //on vérifie si la saisie existe dans la chaîne
-            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
-                option.style.display = "block";
+            for(let option of menuDeroulantAppareil.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                }
             }
-            else {
-                option.style.display = "none";
-            }
-        }
         }
     })
 
@@ -379,6 +394,14 @@ window.onload = () => {
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
+        // else {
+        //     this.setAttribute("contenteditable", "true");
+        //     this.focus();//on donne le focus au champ
+        //     this.innerHTML = "";
+        // }
+        // else if (this.getAttribute("contenteditable") == "true") {
+        //     menuDeroulantIngredients.style.display = "block";
+        // }
         else {
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus au champ
@@ -403,6 +426,9 @@ window.onload = () => {
                 }
             }
         }
+        // else {
+        //     menuDeroulantIngredients.style.display = "block";
+        // }
     })
 
     //Fonction de gestion de tags(affichage, fermeture et filtre)
