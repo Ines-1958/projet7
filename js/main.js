@@ -311,7 +311,7 @@ window.onload = () => {
     searchAppareil.addEventListener("input", function(e) {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
-        
+
         if(saisie.length > 2) {
             //on parcourt tous les enfants de notre menu(newMenu)
             for(let option of menuDeroulantAppareil.children) {
@@ -336,6 +336,7 @@ window.onload = () => {
                 }
             }
         }
+
     })
 
     //Création menu déroulant ustensiles et ajout de classe et id
