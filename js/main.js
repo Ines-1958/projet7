@@ -65,25 +65,16 @@ window.onload = () => {
     const selectFilterIngredient = document.createElement("div");
     selectFilterIngredient.classList.add("select-filter-selected", "select-hide", "ingredient-selected");
     selectedItems.appendChild(selectFilterIngredient);
-    const iconeIngredient = document.createElement("i");
-    iconeIngredient.classList.add("far", "fa-times-circle");
-    selectFilterIngredient.appendChild(iconeIngredient);
     
     //Création div et icone Appareil
     const selectFilterAppareil = document.createElement("div");
     selectFilterAppareil.classList.add("select-filter-selected", "select-hide", "appareil-selected");
     selectedItems.appendChild(selectFilterAppareil);
-    const iconeAppareil = document.createElement("i");
-    iconeAppareil.classList.add("far", "fa-times-circle");
-    selectFilterAppareil.appendChild(iconeAppareil);
 
     //Création div et icone Ustensiles
     const selectFilterUstensile = document.createElement("div");
     selectFilterUstensile.classList.add("select-filter-selected", "select-hide","ustensile-selected");
     selectedItems.appendChild(selectFilterUstensile);
-    const iconeUstensile = document.createElement("i")
-    iconeUstensile.classList.add("far", "fa-times-circle");
-    selectFilterUstensile.appendChild(iconeUstensile);
 
     //Récupération 1ère div "select-filter"
     const selectDiv = document.querySelector(".select-filter__item"); 
@@ -122,7 +113,7 @@ window.onload = () => {
     const searchIngredient = document.createElement("div");
     searchIngredient.classList.add("select-filter__donnees--label");
     searchIngredient.setAttribute("id", "label-ingredient")
-    searchIngredient.textContent= "Rechercher un ingredient";
+    searchIngredient.textContent= "Rechercher un ingrédient";
 
     selectIngredients.appendChild(searchIngredient);
 
@@ -217,13 +208,14 @@ window.onload = () => {
     })
 
     searchIngredient.addEventListener("click", function () {
-        this.innerHTML = "";
+        //this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
         else {
             this.setAttribute("contenteditable", "true");
             this.focus();//on donne le focus à notre champ
+            //this.innerHTML = "";
         }
     })
 
@@ -232,6 +224,8 @@ window.onload = () => {
         //on récupère la saisie en minuscules
         let saisie = this.textContent.toLowerCase();
 
+       //On déclenche la recherche à partir de 3 caractères
+       if(saisie.length > 2) {
         //on parcourt tous les enfants de notre menu(newMenu)
         for(let option of menuDeroulantIngredients.children) {
             //on vérifie si la saisie existe dans la chaîne
@@ -242,6 +236,22 @@ window.onload = () => {
                 option.style.display = "none";
             }
         }
+    }
+    console.log(saisie);
+    console.log(saisie.length);
+    if(saisie.length === 0) {
+        tagsItems();
+        for(let option of menuDeroulantIngredients.children) {
+            //on vérifie si la saisie existe dans la chaîne
+            if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                option.style.display = "block";
+            }
+            else {
+                option.style.display = "none";
+                tagsItems();
+            }
+        }
+    }
     })
 
     //Création menu déroulant appareil et ajout de classe et id
@@ -500,60 +510,65 @@ async function globalFilter () {
     const input = document.getElementById("filtre-cards");
     var saisie = input.value.toLowerCase();
     const recipiesSelected = [];
+    //if(saisie.length > 2) { 
 
-    for(let recipie of recipies) {
+        for(let recipie of recipies) {
 
-        if(recipie.name.toLowerCase().indexOf(saisie) > -1){
-            recipiesSelected.push(recipie);
+            if(recipie.name.toLowerCase().indexOf(saisie) > -1){
+                recipiesSelected.push(recipie);
+            }
+            else if(buildDescription(recipie.ingredients).toLowerCase().indexOf(recipie) > -1){
+                recipiesSelected.push(recipie);
+            }
+            else if(recipie.description.toLowerCase().indexOf(saisie) > -1) {
+                recipiesSelected.push(recipie);
+            }
         }
-        else if(buildDescription(recipie.ingredients).toLowerCase().indexOf(recipie) > -1){
-            recipiesSelected.push(recipie);
-        }
-        else if(recipie.description.toLowerCase().indexOf(saisie) > -1) {
-            recipiesSelected.push(recipie);
-        }
-    }
 
-    let recipiesToDisplay = [];
-    if(tagSelected.length !== 0) {
-        tagSelected.forEach(tag => {
-            if(tag.couleur === "vert") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-            else if(tag.couleur === "orange") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-            else if(tag.couleur === "bleu") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-        }) 
-    }
-    else {
-        recipiesToDisplay = recipiesSelected;
-    }
+        let recipiesToDisplay = [];
+        if(tagSelected.length !== 0) {
+            tagSelected.forEach(tag => {
+                if(tag.couleur === "vert") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+                else if(tag.couleur === "orange") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+                else if(tag.couleur === "bleu") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+            }) 
+        }
+        else {
+            recipiesToDisplay = recipiesSelected;
+        }
     
-    // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
-    if(recipiesSelected.length === 0 ) {
-        document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
-    }
-    else {
-        mesRecettes(recipiesSelected);
-        document.getElementById('erreur').innerHTML = "";
-    }
+        // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
+        if(recipiesSelected.length === 0 ) {
+            document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
+        }
+        else {
+            mesRecettes(recipiesSelected);
+            document.getElementById('erreur').innerHTML = "";
+        }
 
     mesRecettes(recipiesToDisplay);
+    //}
+    // else {
+    //     mesRecettes(recipies);
+    // }
 }
 
 
