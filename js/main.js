@@ -212,7 +212,7 @@ window.onload = () => {
     })
 
     searchIngredient.addEventListener("click", function () {
-        this.innerHTML = "";
+        //this.innerHTML = "";
         if(this.getAttribute("contenteditable") == "true") {
             this.setAttribute("contenteditable", "false");
         }
