@@ -244,19 +244,19 @@ window.onload = () => {
         }
         console.log(saisie);
         console.log(saisie.length);
-        // if(saisie.length === 0) {
-        //     tagsItems();
-        //     for(let option of menuDeroulantIngredients.children) {
-        //         //on vérifie si la saisie existe dans la chaîne
-        //         if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
-        //             option.style.display = "block";
-        //         }
-        //         else {
-        //             option.style.display = "none";
-        //             tagsItems();
-        //         }
-        //     }
-        // }
+        if(saisie.length === 0) {
+            //tagsItems();
+            for(let option of menuDeroulantIngredients.children) {
+                //on vérifie si la saisie existe dans la chaîne
+                if(option.textContent.toLowerCase().search(saisie) > -1) {//-1 pcq search renvoie -1 s'il ne trouve pas
+                    option.style.display = "block";
+                }
+                else {
+                    option.style.display = "none";
+                    tagsItems();
+                }
+            }
+        }
     })
 
     //Création menu déroulant appareil et ajout de classe et id
@@ -526,7 +526,7 @@ cardFilter();
 async function globalFilter () {
     const recipies = await getRecipies();
     const input = document.getElementById("filtre-cards");
-    var saisie = input.value.toLowerCase();
+    let saisie = input.value.toLowerCase();
     const recipiesSelected = [];
     if(saisie.length > 2) {
         recipies.forEach((recipie) => {
@@ -541,47 +541,48 @@ async function globalFilter () {
             }
         })
     
-    let recipiesToDisplay = [];
-    if(tagSelected.length !== 0) {
-        tagSelected.forEach(tag => {
-            if(tag.couleur === "vert") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-            else if(tag.couleur === "orange") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-            else if(tag.couleur === "bleu") {
-                recipiesSelected.map(recipie => {
-                    if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
-                        recipiesToDisplay.push(recipie);
-                    }
-                })
-            }
-        }) 
-    }
-    else {
-        recipiesToDisplay = recipiesSelected;
-    }
-
-    // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
-    if(recipiesSelected.length === 0 ) {
-        document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
-    }
-    else {
-        console.log(recipiesSelected);
-        mesRecettes(recipiesSelected);
-        document.getElementById('erreur').innerHTML = "";
-    }
     
-    mesRecettes(recipiesToDisplay);
+        let recipiesToDisplay = [];
+        if(tagSelected.length !== 0) {
+            tagSelected.forEach(tag => {
+                if(tag.couleur === "vert") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.appliance.toLowerCase() === tag.nom.toLowerCase()) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+                else if(tag.couleur === "orange") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.ustensils.some(ustensil => ustensil.toLowerCase() === tag.nom.toLowerCase()) ) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+                else if(tag.couleur === "bleu") {
+                    recipiesSelected.map(recipie => {
+                        if(recipie.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === tag.nom.toLowerCase()) ) {
+                            recipiesToDisplay.push(recipie);
+                        }
+                    })
+                }
+            }) 
+        }
+        else {
+            recipiesToDisplay = recipiesSelected;
+        }
+
+        // Si le tableau recipiesToDisplay est vide, afficher le message d'erreur, sinon appeler mes recettes en envoyant ce tableau et supprimer le message d'erreur s'il y en avait un avant
+        // if(recipiesSelected.length === 0 ) {
+        //     document.getElementById('erreur').innerHTML = "« Aucune recette ne correspond à votre critère... vous pouvez chercher « tarte aux pommes », « poisson », etc";
+        // }
+        // else {
+        //     console.log(recipiesSelected);
+        //     mesRecettes(recipiesSelected);
+        //     document.getElementById('erreur').innerHTML = "";
+        // }
+        
+        mesRecettes(recipiesToDisplay);
     }
     else {
         mesRecettes(recipies);
