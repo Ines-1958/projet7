@@ -47,15 +47,21 @@ body ul {
 
 .rechercher {
     position: absolute;
-    top: 6.5rem;
+    //top: 6.5rem;
     transform: translateY(-50%);
     background: none;
     border: none;
     font-size: 20px;
     margin: 0;
     padding: 0;
-    left: 75rem;
+    //left: 75rem;
     cursor: pointer;
+
+    //position: absolute;
+    left: 14.5%;
+    right: -77.37%;
+    top: 65.5%;
+    bottom: 14.63%;
 }
 
 .select {
