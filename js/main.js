@@ -479,11 +479,12 @@ async function mesRecettes (recipiesSelected) {
                 <div class="recette">
                     <div class="recette__ingredients">
                         <h2>${recettes.name}</h2>
-                        ${buildDescription(recettes.ingredients)}
+                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> ${recettes.time} min</h2>
                     </div>
                     <div class="recette__description">
-                        <h2 class="recette__description--h2"><i class="far fa-clock"></i> ${recettes.time} min</h2>
-                        <p class="recette__description--p"> ${recettes.description} </p>
+                        <div class="quantite"> ${buildDescription(recettes.ingredients)}</div>
+                        <div class="description-recette"><p class="recette__description--p"> ${recettes.description} </p></div>
+                    </div>
                     </div>
                 </div>
             </a>    
