@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    margin: 30px;
+    margin: 30px 20px;
     font-family: 'Lato', sans-serif;
     font-size: 15px;
 }
@@ -31,14 +31,14 @@ body ul {
        &--form {
            &--div {
                margin: 20px;
-               position: relative;
-            input {
+               position:relative;
+
+                input {
                 padding: 15px;
                 border: none;
                 width: 100%;
                 background-color: #E7E7E7;
                 border-radius: 5px;
-                position: relative;
                }
            }  
        } 
@@ -47,16 +47,15 @@ body ul {
 
 .rechercher {
     position: absolute;
-    top: 1.5rem;
+    top: 25px;
     transform: translateY(-50%);
     background: none;
     border: none;
     font-size: 20px;
     margin: 0;
     padding: 0;
-    //left: 63rem;
-    left: 50px;
-    cursor: pointer;
+    right: 25px;
+    cursor: pointer; 
 }
 
 .select {
@@ -144,7 +143,6 @@ body ul {
                     width: auto;
                     max-width: 31.33%;
                     margin-bottom: 1px;
-                    //font-size: 1px;
                 }
             }
 
@@ -184,22 +182,21 @@ body ul {
     margin-bottom: 20px;
     border-radius: 5px;
     background-color: #E7E7E7;
-    border-radius: 6px;
+    border-radius: 5px;
 
     &__heading {
        background-color: #C7BEBE; 
        padding: 10px;
        width: 100%;
-       padding: 70px;
-       border-top-left-radius: 6px;
-       border-top-right-radius: 6px;
+       padding: 100px;
+       border-radius: 5px 5px 0px 0px;
     }
 }
 .recette {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 5px 15px;
+    padding: 0 10px;
     width: 100%;
     background-color: #E7E7E7;
     p {
@@ -207,27 +204,28 @@ body ul {
     }
 
     &__ingredients { 
+        display: flex;
+        justify-content: space-between;
         h2 {
             font-size: 16px;
         }
         &--p {
             font-size: 13px;
-            &--span {
-                font-weight: bold;
-            }
+            font-weight: bold;
         }
     }
 
     &__description {
-        width: 49%;
-        &--h2 {
-            font-size: 16px;
-            margin-left: 93px;
-        }
+        display: flex;
+        justify-content: space-between;
+    
         &--p {
             font-family: 'Lato', sans-serif;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
+        }
+        .quantite, .description-recette {
+            width: 49%;
         }
     }
 }
