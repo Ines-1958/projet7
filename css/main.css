@@ -3,14 +3,14 @@
 }
 
 body {
-  margin: 0;
+  margin: 30px;
   font-family: 'Lato', sans-serif;
   font-size: 15px;
 }
 
 body a {
   text-decoration: none;
-  color: black;
+  color: #000000;
 }
 
 body ul {
@@ -31,6 +31,7 @@ body ul li {
 
 .heading__recherche--form--div {
   margin: 20px;
+  position: relative;
 }
 
 .heading__recherche--form--div input {
@@ -40,19 +41,18 @@ body ul li {
   background-color: #E7E7E7;
   border-radius: 5px;
   position: relative;
-  box-shadow: 0px 3px 5px 1px #C7BEBE;
 }
 
 .rechercher {
   position: absolute;
-  top: 6.5rem;
+  top: 1.5rem;
   transform: translateY(-50%);
   background: none;
   border: none;
   font-size: 20px;
   margin: 0;
   padding: 0;
-  left: 75rem;
+  left: 50px;
   cursor: pointer;
 }
 
@@ -192,7 +192,6 @@ body ul li {
   margin-bottom: 20px;
   border-radius: 5px;
   background-color: #E7E7E7;
-  box-shadow: 0px 3px 5px 1px #757575;
   border-radius: 6px;
 }
 
@@ -209,7 +208,7 @@ body ul li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 5px;
+  padding: 5px 15px;
   width: 100%;
   background-color: #E7E7E7;
 }
@@ -256,7 +255,6 @@ body ul li {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0px 3px 5px 1px #C7BEBE;
 }
 
 .new-select:after {
